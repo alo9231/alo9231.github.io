@@ -1,0 +1,26 @@
+
+
+/**************** HEADER ****************/
+.wrap_header {width: 100%;height: 150px;position: fixed;background: #fff;box-shadow: 3px 3px 10px 0px rgb(47 46 44 / 7%);z-index: 22;transition: all 0.3s ease-in-out; /* 부드러운 전환 */} 
+.wrap_header .box_m_topmenu { display: none; } 
+.wrap_header .w_inner {display: flex;width: 100%;max-width: 1440px;height: 100%;margin: 0 auto;align-items: center;justify-content: space-between;min-height: inherit;} 
+.wrap_header .inner { display: flex; justify-content: space-between; min-height: inherit; width: 95%; max-width: 1440px; margin: 0 auto; align-items: center; height: 100%; } 
+.wrap_header .area_logo {  font-family: 'AlexBrush'; font-size:23px;}
+.wrap_header .area_logo>a { display: block; } 
+.wrap_header .area_logo>a>img {max-width: 100%;} 
+.area_rheader {width: calc(100% - 100px);height: inherit;} 
+
+.area_rheader .menu--bottom--right {height: inherit;width: 100%;display: flex;align-items: center;justify-content: end;}
+.area_rheader .menu--bottom--right.active:before {content: '';width: 100vh;height: 100vh;position: fixed;background: #000;top: 0;left: 0;opacity: 0.7;}
+.area_rheader .menuItem {display: flex;}
+.area_rheader .menuItem li a {display:block; font-size: 24px;color: #000;font-weight: bold;padding-right: 105px;opacity: 0.5;  transition: all 0.3s ease-in-out;}
+.area_rheader .menuItem li:last-child a {padding-right: 0;}
+.area_rheader .menuItem li a:hover {color:#f6892e;}
+
+
+.wrap_header.shrink { height: 60px; /* 줄어든 높이 */background: rgba(255, 255, 255, 0.2);box-shadow: 0 2px 30px rgba(0, 0, 0, 0.1);backdrop-filter: blur(5px);-webkit-backdrop-filter: blur(5px);border-bottom: 1px solid rgba(255, 255, 255, 0.3);}
+.wrap_header.shrink .area_rheader .menuItem li a { font-size: 16px; /* 줄어든 폰트 크기 */}
+
+.wrap_cont {padding-top:150px;}
+.wrap_cont.shrink {padding-top:60px;}
+

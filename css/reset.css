@@ -1,0 +1,212 @@
+/* css/reset.css */
+form {
+    width: inherit;
+    display: inherit;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+textarea {
+    resize: none;
+}
+
+input::placeholder {
+    color: #b5babf;
+}
+
+textarea::placeholder {
+    color: #b5babf;
+}
+
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+a {
+    color: #000;
+    text-decoration: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+button {
+    background: transparent;
+    border: 0;
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: normal;
+    src: url(font/Pretendard-Regular.woff2) format('woff2'), url(font/Pretendard-Regular.woff) format('woff'), url(font/Pretendard-Regular.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 500;
+    src: url(font/Pretendard-Medium.woff2) format('woff2'), url(font/Pretendard-Medium.woff) format('woff'), url(font/Pretendard-Medium.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: bold;
+    src: url(font/Pretendard-Bold.woff2) format('woff2'), url(font/Pretendard-Bold.woff) format('woff'), url(font/Pretendard-Bold.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'GmarketSans';
+    font-style: normal;
+    font-weight: light;
+    src: url(font/GmarketSans-Light.woff2) format('woff2'), url(font/GmarketSans-Light.woff) format('woff'), url(font/GmarketSans-Light.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'GmarketSans';
+    font-style: normal;
+    font-weight: normal;
+    src: url(font/GmarketSans-Medium.woff2) format('woff2'), url(font/GmarketSans-Medium.woff) format('woff'), url(font/GmarketSans-Medium.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'GmarketSans';
+    font-style: normal;
+    font-weight: bold;
+    src: url(font/GmarketSans-Bold.woff2) format('woff2'), url(font/GmarketSans-Bold.woff) format('woff'), url(font/GmarketSans-Bold.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'AlexBrush';
+    font-style: normal;
+    font-weight: normal;
+    src: url(font/AlexBrush-Regular.woff2) format('woff2'), url(font/AlexBrush-Regular.woff) format('woff'), url(font/AlexBrush-Regular.otf) format('opentype');
+}
+
+* {
+    font-family: 'Pretendard','GmarketSans', 'AlexBrush', sans-serif;
+}
