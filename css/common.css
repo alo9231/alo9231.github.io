@@ -41,17 +41,15 @@
     bottom: 0;
     z-index: 1;        /* 컨텐츠보다 아래에 위치 */
     height: 300px;     /* 푸터의 높이 */
-    background-color: #f8f8f8;
-    /* color: white; */
+    background-color: #f8f8f8;  
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 
-.wrap_footer .inner .f_txt {
-    color: #a9a9a9;
-}
-
+.wrap_footer .inner .f_txt { display:block; color: #a9a9a9;}
+.wrap_footer .inner .f_txt + .f_txt {padding-top:10px;}
 
 .btn_top.active{ opacity: 1;visibility: visible;}
 
@@ -72,7 +70,7 @@
 
 .btn_top {
     position: fixed;
-    bottom: 25px;
+    bottom: 115px;
     right: 50px;
     width: 84px;
     height: 84px;
@@ -81,7 +79,7 @@
     -moz-border-radius: 100%;
     -ms-border-radius: 100%;
     -o-border-radius: 100%;
-    background: #333 url(../images/ico_top.png) no-repeat center center / 26px auto;
+    background: #333333 url(../images/ico_top.png) no-repeat center center / 26px auto;
     z-index: 100;
     opacity: 0;
     visibility: hidden;
