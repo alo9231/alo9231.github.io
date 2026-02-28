@@ -201,12 +201,55 @@ button {
 }
 
 @font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: light;
+    src: url(font/Montserrat-Light.woff2) format('woff2'), url(font/Montserrat-Light.woff) format('woff'), url(font/Montserrat-Light.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: normal;
+    src: url(font/Montserrat-Medium.woff2) format('woff2'), url(font/Montserrat-Medium.woff) format('woff'), url(font/Montserrat-Medium.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: bold;
+    src: url(font/Montserrat-Bold.woff2) format('woff2'), url(font/Montserrat-Bold.woff) format('woff'), url(font/Montserrat-Bold.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: light;
+    src: url(font/Poppins-Light.woff2) format('woff2'), url(font/Poppins-Light.woff) format('woff'), url(font/Poppins-Light.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: normal;
+    src: url(font/Poppins-Medium.woff2) format('woff2'), url(font/Poppins-Medium.woff) format('woff'), url(font/Poppins-Medium.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: bold;
+    src: url(font/Poppins-Bold.woff2) format('woff2'), url(font/Poppins-Bold.woff) format('woff'), url(font/Poppins-Bold.otf) format('opentype');
+}
+
+
+@font-face {
     font-family: 'AlexBrush';
     font-style: normal;
     font-weight: normal;
     src: url(font/AlexBrush-Regular.woff2) format('woff2'), url(font/AlexBrush-Regular.woff) format('woff'), url(font/AlexBrush-Regular.otf) format('opentype');
 }
 
-* {
-    font-family: 'Pretendard','GmarketSans', 'AlexBrush', sans-serif;
+body {
+    font-family: 'Pretendard', 'Poppins', 'Montserrat', 'GmarketSans', 'AlexBrush', sans-serif;
 }
