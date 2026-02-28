@@ -129,14 +129,14 @@
 
 
 /****************** 섹션 3 **********************/
-.box_scale {width:80%;margin: 100px auto 0;transition: all 0.5s ease-out;opacity: 0.5;min-height: auto;}
+.box_scale {width:80%;margin: 100px auto 0;transition: all 0.5s ease-out;opacity: 0.5;/* min-height: auto; */}
 .box_scale.grow {/* 1배 크기 */ opacity: 1;width: 100%;}
-.box_scale .hover_wrap {font-family: "Poppins", sans-serif;background-color: #0d0d0d;margin: 0;width: 100%;}
+.box_scale .hover_wrap {font-family: "Poppins", sans-serif;background-color: #0d0d0d;margin: 0;width: 100%;height: 100%;}
 .box_scale .hover_wrap span {position: absolute;width: 100%;height: 100%;left: 0;background-color: #4246ce;color: #0d0d0d;clip-path: polygon(0 50%, 100% 50%, 100% 50%, 0 50%);transform-origin: center;transition: all cubic-bezier(0.1, 0.5, 0.5, 1) 0.4s;display: flex;align-items: center;}
 .box_scale .hover_wrap  a {text-decoration: none; color: inherit;}
 .box_scale .hover_wrap .text:hover > span {clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);}
-.box_scale .hover_wrap .text {font-size: 10vw;letter-spacing: -0.01em;line-height: 100%;margin: 0;width: 100%;color: rgb(182, 182, 182, 0.2);background: linear-gradient(to right, #3b2525, #b6b6b6) no-repeat;-webkit-background-clip: text;background-clip: text;background-size: 0%;transition: background-size cubic-bezier(0.1, 0.5, 0.5, 1) 0.5s;border-bottom: 1px solid #2f2b28;display: flex;flex-direction: column;align-items: flex-start;justify-content: center;position: relative;animation-name: reveal;animation-timing-function: linear;animation-fill-mode: forwards;animation-timeline: view();animation-range: entry 100% cover 50%;}
-.box_scale .hover_wrap .container {display: flex;flex-direction: column;justify-content: center;align-items: flex-start;font-family: 'Poppins', sans-serif;font-weight: 800;}
+.box_scale .hover_wrap .text {font-size: 10vw;letter-spacing: -0.01em;line-height: 100%;margin: 0;width: 100%;color: rgb(182, 182, 182, 0.2);background: linear-gradient(to right, #3b2525, #b6b6b6) no-repeat;-webkit-background-clip: text;background-clip: text;background-size: 0%;transition: background-size cubic-bezier(0.1, 0.5, 0.5, 1) 0.5s;border-bottom: 1px solid #2f2b28;display: flex;flex-direction: column;align-items: flex-start;justify-content: center;position: relative;animation-name: reveal;animation-timing-function: linear;animation-fill-mode: forwards;animation-timeline: view();animation-range: entry 100% cover 50%;flex: 1;}
+.box_scale .hover_wrap .container {display: flex;flex-direction: column;justify-content: center;align-items: flex-start;font-family: 'Poppins', sans-serif;font-weight: 800;height: inherit;}
 
 @keyframes reveal {
   to {
@@ -146,7 +146,7 @@
 
 
 /****************** 섹션 4 **********************/
-.box.box_contact {overflow-x:hidden; min-height:80vh;}
+.box.box_contact {overflow-x:hidden;min-height: 80vh;}
 .box.box_contact .box_looptxt {position: relative;overflow: hidden;font: 900 173px san-serif;}
 
 .box_contact .discover {position: relative;display: inline-block;cursor: pointer;border: 0;background: transparent;vertical-align: middle;text-decoration: none;padding: 0;font-size: inherit;font-family: inherit;width: 12rem;height: auto;}
@@ -165,7 +165,7 @@
 
 .txt_bounce span {display: inline-block;transition: transform 0.3s ease;}
 .box.active .txt_bounce span {animation: bounce 0.5s ease; animation-delay: calc(0.05s * var(--i));letter-spacing: -0.28em;}
-.box_contact .letter-container {font-size: 3rem;font-weight: bold;overflow: hidden; /* 영역 밖 글자 숨김 */font-family: 'Montserrat';}
+.box_contact .letter-container {font-size: 3rem;font-weight: bold;overflow: hidden; /* 영역 밖 글자 숨김 */font-family: 'Montserrat';margin-top: 100px;}
 .box_contact .letter{display: inline-block;opacity: 0; /* 처음엔 투명 */}
 .box.active .letter {transform: translateY(20px); /* 처음엔 아래에 위치 */animation: slideUpFade 1s forwards; /* 애니메이션 적용 */}
 
@@ -235,7 +235,7 @@
 
   .box.box_contact .box_looptxt {font-size: 60px;}
   .box_contact .pop-up-text { font-size: 30px;}
-  .box_contact .letter-container { font-size: 40px;}
+  .box_contact .letter-container {font-size: 40px;margin-top: 50px;}
 
 }
 
@@ -265,7 +265,7 @@
   .list_work li:nth-child(6) a {margin-right:5%;}
 
 
-  .box.box_contact {overflow-x: hidden;min-height: 60vh;}
+  .box.box_contact {overflow-x: hidden;}
   .box_btm .sub {flex-direction: column;align-items: start;font-family: 'Montserrat';}
   .txt_skills span {font-size: 14px; line-height: 1.5;   word-break: auto-phrase;}
   .box_btm .sub .txt_team {margin: 20px 0 0;
