@@ -66,7 +66,42 @@ document.addEventListener("DOMContentLoaded", function() {
     printToday();
   
 
-    // 스크롤했을때 커지는 호버 영역 | 섹션 2
+    
+    //work 스크롤 이벤트 | 섹션 2 
+    function workObserverActive(){
+        const li = document.querySelectorAll('.list_work li');
+
+          const options = {
+            // 뷰포트를 기준으로 설정 (root: null)
+            root: null,
+            // 화면 하단(100%)에서 50% 올라온 지점을 감지
+            rootMargin: "0px 0px -50% 0px",
+            // 0px(한 픽셀이라도 보이면) 또는 0.01 이상 설정
+            threshold: 0
+        };
+
+
+        const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+            // 50% 지점에 들어오면 active 클래스 추가
+            entry.target.classList.add('active');
+            } else {
+            // 50% 지점을 다시 벗어나면 (위로 스크롤해서 올리거나너무 많이 내려갔을 때)
+            // active 클래스 제거
+            //entry.target.classList.remove('active');
+            }
+        });
+        }, options);
+
+        li.forEach(section => {
+        observer.observe(section);
+        });
+    }
+
+    workObserverActive();
+
+    // 스크롤했을때 커지는 호버 영역 | 섹션 3
     function scrollScaleEvent(){
            const box = document.querySelector('.box_scale')
 
@@ -86,8 +121,9 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+
     
-    //무한 롤링 텍스트 | 섹션 3
+    //무한 롤링 텍스트 | 섹션 4
     function createLoopingText(el) {
         const lerp = (current, target, factor) => current * (1 - factor) + target * factor;
 
@@ -131,88 +167,114 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelectorAll('.loop-container').forEach(el => createLoopingText(el));
 
 
-    function sectionObserverActive(){
-        const sections = document.querySelectorAll(".box");
-        const navLinks = document.querySelectorAll(".menuItem .link_menu");
+    let isSection4Active = false; // section4 활성화 상태 저장 변수
 
-        const options = {
-            root: null,
-            // 화면 하단에서 20% 지점(선)을 기준으로 설정 (원하시는 감도에 따라 조절 가능)
-            rootMargin: "0px 0px -20% 0px", 
-            threshold: 0
-        };
+    function scrollParallaxCircle() {
+        if (!isSection4Active) return;
 
-       const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                const sectionId = entry.target.id;
-                const navLink = document.querySelector(`a[data-target="${sectionId}"]`);
+        const section4 = document.getElementById('section4');
+        const circles = [
+            document.querySelector('.circle-1'),
+            document.querySelector('.circle-2'),
+            document.querySelector('.circle-3'),
+            document.querySelector('.circle-4')
+        ];
 
-                if (entry.isIntersecting) {
-                    // 1. 섹션은 누적해서 active 유지
-                    entry.target.classList.add("active");
+        if (!section4 || circles.includes(null)) return;
 
-                    // 2. 메뉴(navLink)는 현재 섹션만 강조하기 위해 다른 메뉴의 active는 일단 모두 지움
-                    document.querySelectorAll(".menuItem .link_menu").forEach(a => a.classList.remove("active"));
-                    if (navLink) navLink.classList.add("active");
-                } 
-                else {
-                    // 섹션이 화면 기준선(rootMargin) 밖으로 나갔을 때
-                    
-                    // 1. 아래로 내려가서 사라지는 경우에만 섹션 active 제거 (올릴 때는 유지)
-                    if (entry.boundingClientRect.top > 0) {
-                        entry.target.classList.remove("active");
-                    }
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const sectionTop = section4.offsetTop;
+        const viewportHeight = window.innerHeight;
 
-                    // 2. [추가된 부분] 메뉴(navLink)는 해당 섹션을 벗어나면(위로든 아래로든) 무조건 active 제거
-                    if (navLink) navLink.classList.remove("active");
-                }
-            });
-        }, options);
+        // 섹션 중앙 기준점 계산
+        const relativeScroll = scrollTop - sectionTop + (viewportHeight / 2);
 
+        // [속도 차별화] 숫자가 클수록 "내 눈앞"에 있는 것처럼 크게 움직입니다.
+        const speeds = [0.25, -0.18, 0.1, -0.08]; 
 
-
-        // 모든 섹션을 관찰
-        sections.forEach((section) => {
-            observer.observe(section);
+        circles.forEach((circle, index) => {
+            let pos = relativeScroll * speeds[index];
+            // Y축 이동과 함께 아주 미세한 회전(rotation)을 넣어 입체감을 더함
+            circle.style.transform = `translate3d(0, ${pos}px, 0) rotate(${pos * 0.05}deg)`;
         });
     }
 
-    sectionObserverActive();
-    
 
-    // work 스크롤 이벤트
-    function workObserverActive(){
-        const li = document.querySelectorAll('.list_work li');
-
-          const options = {
-            // 뷰포트를 기준으로 설정 (root: null)
-            root: null,
-            // 화면 하단(100%)에서 50% 올라온 지점을 감지
-            rootMargin: "0px 0px -50% 0px",
-            // 0px(한 픽셀이라도 보이면) 또는 0.01 이상 설정
-            threshold: 0
-        };
-
+    // 섹션 감시 옵저버 설정 (기존 sectionObserverActive 내부에 통합하거나 별도 작성)
+    function section4Observer() {
+        const section4 = document.getElementById('section4');
+        if (!section4) return;
 
         const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-            // 50% 지점에 들어오면 active 클래스 추가
-            entry.target.classList.add('active');
-            } else {
-            // 50% 지점을 다시 벗어나면 (위로 스크롤해서 올리거나너무 많이 내려갔을 때)
-            // active 클래스 제거
-            //entry.target.classList.remove('active');
-            }
-        });
-        }, options);
+            entries.forEach(entry => {
+                // section4가 화면에 들어오면 true, 나가면 false
+                isSection4Active = entry.isIntersecting;
+            });
+        }, { threshold: 0 }); // 아주 조금이라도 보이면 활성화
 
-        li.forEach(section => {
-        observer.observe(section);
-        });
+        observer.observe(section4);
     }
 
-    workObserverActive();
+    section4Observer(); // 옵저버 실행
+
+    //스크롤 시 애니메이션 활성화
+    function sectionObserverActive() {
+    const sections = document.querySelectorAll(".box");
+    const navLinks = document.querySelectorAll(".menuItem .link_menu");
+
+    // 1. 섹션 애니메이션용 옵저버 (빨리 반응: 하단 10~20%)
+    const sectionOptions = {
+        root: null,
+        rootMargin: "0px 0px -20% 0px", // 섹션이 조금만 올라와도 바로 active
+        threshold: 0
+    };
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("active");
+            } else {
+                // 아래로 완전히 내려가서 사라질 때만 active 제거
+                if (entry.boundingClientRect.top > 0) {
+                    entry.target.classList.remove("active");
+                }
+            }
+        });
+    }, sectionOptions);
+
+    // 2. 메뉴 네비게이션용 옵저버 (느리게 반응: 화면 중앙 -50%)
+    const navOptions = {
+        root: null,
+        rootMargin: "0px 0px -50% 0px", // 화면 절반 이상 올라와야 메뉴 활성
+        threshold: 0
+    };
+
+    const navObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            const sectionId = entry.target.id;
+            const navLink = document.querySelector(`a[data-target="${sectionId}"]`);
+
+            if (entry.isIntersecting) {
+                // 현재 들어온 섹션의 메뉴만 활성화
+                navLinks.forEach(a => a.classList.remove("active"));
+                if (navLink) navLink.classList.add("active");
+            } else {
+                // 섹션이 기준선을 벗어나면 메뉴 active 제거
+                if (navLink) navLink.classList.remove("active");
+            }
+        });
+    }, navOptions);
+
+    // 모든 섹션에 대해 두 옵저버를 각각 실행
+    sections.forEach((section) => {
+        sectionObserver.observe(section);
+        navObserver.observe(section);
+    });
+}
+
+    sectionObserverActive();
+
+
 
     // 위로 가기
     const btnTop = document.querySelector(".btn_top");
@@ -228,14 +290,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // 버튼 클릭 시 최상단으로 이동
     btnTop.addEventListener('click',() => {
-    window.scrollTo({
-        top: 0, behavior: 'smooth' // 부드럽게 이동
-    });
+        window.scrollTo({
+            top: 0, behavior: 'smooth' // 부드럽게 이동
+        });
     });
 
     window.onscroll = function() {
         scrollHeaderEvent();     
         scrollScaleEvent();  
+        scrollParallaxCircle();
         goTopEvent ();
     };
 
