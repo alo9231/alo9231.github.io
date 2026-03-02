@@ -210,60 +210,52 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelectorAll('.loop-container').forEach(el => createLoopingText(el));
 
 
-    let isSection4Active = false; // section4 활성화 상태 저장 변수
-
-    // 1. 변수를 함수 밖에서 딱 한 번만 찾아둠 (캐싱)
+    // section4 활성화 상태 저장 변수 (아이폰 최적화 & 실행 오류 수정) ---
+    // --- 섹션 4 패럴랙스 (동시 반응 버전) ---
+    let isSection4Active = false; 
+    const s4 = document.getElementById('section4');
     const parallaxCircles = [
         document.querySelector('.circle-1'),
         document.querySelector('.circle-2'),
         document.querySelector('.circle-3'),
         document.querySelector('.circle-4')
     ];
-    const parallaxSection = document.getElementById('section4');
-    const speeds = [0.25, -0.18, 0.1, -0.08];
+    const s4_speeds = [0.25, -0.18, 0.1, -0.08];
 
+    function updateParallax() {
+        // 'ease'를 거치지 않고 실제 스크롤 위치를 즉시 가져옵니다.
+        const immediateScrollY = window.pageYOffset;
 
-    function scrollParallaxCircle() {
-        // 활성화 상태가 아니거나 섹션이 없으면 즉시 종료
-        if (!isSection4Active || !parallaxSection) return;
-
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const sectionTop = parallaxSection.offsetTop;
-        const viewportHeight = window.innerHeight;
-
-        // 중앙 기준점 계산 (반복 계산 줄이기)
-        const relativeScroll = scrollTop - sectionTop + (viewportHeight * 0.5);
-
-        // 2. 캐싱된 변수를 사용해 루프 실행
-        parallaxCircles.forEach((circle, index) => {
-            if (!circle) return; // 혹시라도 요소가 없으면 패스
-            
-            const pos = relativeScroll * speeds[index];
-            // 3. rotation 값이 너무 크면 연산량이 늘어나니 미세하게 조절
-            const rotation = pos * 0.05;
-            
-            // 4. translate3d를 사용해 GPU에 직접 명령
-            circle.style.transform = `translate3d(0, ${pos.toFixed(1)}px, 0) rotate(${rotation.toFixed(1)}deg)`;
-        });
+        if (isSection4Active && s4) {
+            parallaxCircles.forEach((circle, i) => {
+                if (circle) {
+                    // 관성 없이 즉각적인 스크롤 위치를 사용하되, 속도 격차만 적용
+                    const relativeScroll = immediateScrollY - s4.offsetTop;
+                    const yPos = relativeScroll * s4_speeds[i];
+                    
+                    // translate3d로 하드웨어 가속은 유지 (아이폰 버벅임 방지)
+                    circle.style.transform = `translate3d(0, ${yPos.toFixed(2)}px, 0)`;
+                }
+            });
+        }
+        // 아이폰 Safari의 스크롤 동기화를 위해 rAF는 유지합니다.
+        requestAnimationFrame(updateParallax);
     }
 
+    // 루프 시작
+    requestAnimationFrame(updateParallax);
 
-    // 섹션 감시 옵저버 설정 (기존 sectionObserverActive 내부에 통합하거나 별도 작성)
+    // 섹션 감시 옵저버 (기존과 동일)
     function section4Observer() {
-        const section4 = document.getElementById('section4');
-        if (!section4) return;
-
+        if (!s4) return;
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                // section4가 화면에 들어오면 true, 나가면 false
                 isSection4Active = entry.isIntersecting;
             });
-        }, { threshold: 0 }); // 아주 조금이라도 보이면 활성화
-
-        observer.observe(section4);
+        }, { threshold: 0 });
+        observer.observe(s4);
     }
-
-    section4Observer(); // 옵저버 실행
+    section4Observer();
 
     //스크롤 시 애니메이션 활성화
     function sectionObserverActive() {
@@ -350,8 +342,7 @@ document.addEventListener("DOMContentLoaded", function() {
             window.requestAnimationFrame(() => {
                 scrollHeaderEvent();    
                 section2BgProgress();
-                scrollScaleEvent();  
-                scrollParallaxCircle(); // 이 내부의 DOM 선택자들을 밖으로 빼면 더 좋습니다.
+                scrollScaleEvent();            
                 goTopEvent();
                 ticking = false;
             });
