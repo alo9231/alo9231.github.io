@@ -212,31 +212,38 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let isSection4Active = false; // section4 활성화 상태 저장 변수
 
+    // 1. 변수를 함수 밖에서 딱 한 번만 찾아둠 (캐싱)
+    const parallaxCircles = [
+        document.querySelector('.circle-1'),
+        document.querySelector('.circle-2'),
+        document.querySelector('.circle-3'),
+        document.querySelector('.circle-4')
+    ];
+    const parallaxSection = document.getElementById('section4');
+    const speeds = [0.25, -0.18, 0.1, -0.08];
+
+
     function scrollParallaxCircle() {
-        if (!isSection4Active) return;
-
-        const section4 = document.getElementById('section4');
-        // 매번 querySelector를 하면 느리므로 실제로는 함수 밖에서 미리 선언(캐싱)하는 것이 좋습니다.
-        const circles = [
-            document.querySelector('.circle-1'),
-            document.querySelector('.circle-2'),
-            document.querySelector('.circle-3'),
-            document.querySelector('.circle-4')
-        ];
-
-        if (!section4 || circles.includes(null)) return;
+        // 활성화 상태가 아니거나 섹션이 없으면 즉시 종료
+        if (!isSection4Active || !parallaxSection) return;
 
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const sectionTop = section4.offsetTop;
+        const sectionTop = parallaxSection.offsetTop;
         const viewportHeight = window.innerHeight;
 
-        const relativeScroll = scrollTop - sectionTop + (viewportHeight / 2);
-        const speeds = [0.25, -0.18, 0.1, -0.08]; 
+        // 중앙 기준점 계산 (반복 계산 줄이기)
+        const relativeScroll = scrollTop - sectionTop + (viewportHeight * 0.5);
 
-        circles.forEach((circle, index) => {
-            let pos = relativeScroll * speeds[index];
-            // 중요: translate3d를 사용하여 GPU 가속을 사용하게 하고, 소수점 자릿수를 제한합니다.
-            circle.style.transform = `translate3d(0, ${pos.toFixed(2)}px, 0) rotate(${(pos * 0.05).toFixed(2)}deg)`;
+        // 2. 캐싱된 변수를 사용해 루프 실행
+        parallaxCircles.forEach((circle, index) => {
+            if (!circle) return; // 혹시라도 요소가 없으면 패스
+            
+            const pos = relativeScroll * speeds[index];
+            // 3. rotation 값이 너무 크면 연산량이 늘어나니 미세하게 조절
+            const rotation = pos * 0.05;
+            
+            // 4. translate3d를 사용해 GPU에 직접 명령
+            circle.style.transform = `translate3d(0, ${pos.toFixed(1)}px, 0) rotate(${rotation.toFixed(1)}deg)`;
         });
     }
 
