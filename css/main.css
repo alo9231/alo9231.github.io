@@ -8,7 +8,7 @@
   --noise: rgba(255, 255, 255, 0.05);
 }
 
-.box {min-height: 80vh;display: flex;align-items: center;justify-content: center;}
+.box {display: flex;align-items: center;justify-content: center;flex-direction: column;}
 .box_kv {position: relative;overflow-x: hidden;height: 85vh;}
 .box_kv .scroll-downs {position: absolute;bottom: 30px;right: 0;left: 0;width :34px;height: 55px;margin: 0 auto;}
 .mousey {display: block;width: 3px;padding: 3px 12px;height: 35px;border: 2px solid #333;border-radius: 25px;opacity: 0.75;box-sizing: content-box;}
@@ -146,9 +146,9 @@
 
 
 /****************** 섹션 3 **********************/
-.box_scale {width:80%;transition: all 0.5s ease-out;opacity: 0.5;/* min-height: auto; */}
+.box_scale {width:80%;transition: all 0.5s ease-out;opacity: 0.5;min-height: auto;}
 .box_scale.grow {/* 1배 크기 */ opacity: 1;width: 100%;}
-.box_scale .hover_wrap {font-family: "Poppins", sans-serif;background-color: #0d0d0d;margin: 150px 0 0;width: 100%;height: 100%;}
+.box_scale .hover_wrap {font-family: "Poppins", sans-serif;background-color: #0d0d0d;margin: 80px 0 0;width: 100%;height: 100%;}
 .box_scale .hover_wrap span {position: absolute;width: 100%;height: 100%;left: 0;background-color: #4246ce;color: #0d0d0d;clip-path: polygon(0 50%, 100% 50%, 100% 50%, 0 50%);transform-origin: center;transition: all cubic-bezier(0.1, 0.5, 0.5, 1) 0.4s;display: flex;align-items: center;}
 .box_scale .hover_wrap  a {text-decoration: none; color: inherit;}
 .box_scale .hover_wrap .text:hover > span {clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);}
@@ -249,7 +249,7 @@
 @media screen and (max-width: 1024px){
 
   .box_kv .glitch {font-size: 50px;line-height: 1.5;margin-bottom: 60px;}
-  .stroke-wrap {font-size: 40px;padding-top: 0;}
+  .stroke-wrap {font-size: 40px;/* padding-top: 0; */}
   .box_sticky .about_tbox .sign {font-size: 30px;}
   .box_sticky .about_tbox p {font-size: 18px;padding-top: 20px;}
   .box_sticky .about_career .row strong { font-size: 30px;}
@@ -262,8 +262,7 @@
   .list_work li a {width:60%; }
   .list_work li .box_btm strong {font-size:22px;}
 
-  .box_scale {margin: 0px auto 0;min-height: 80vh;}
-	.box_scale .hover_wrap {margin:0}
+  .box_scale {margin: 0px auto 0;}
 
   .box.box_contact .box_looptxt {font-size: 60px;}
   .box_contact .pop-up-text { font-size: 30px;}
@@ -275,7 +274,7 @@
 @media screen and (max-width: 767px){
 
 
-  .box.box_contact .box_looptxt {font-size: 40px;}
+  .box.box_contact .box_looptxt {font-size: 40px;padding-top: 40px;}
   .box_sticky .box_aside {width:20%;}
   .box_sticky .main {width:80%;padding:10px;}
   .box_sticky .about_tbox { font-size: 18px; }
@@ -288,6 +287,7 @@
   .box_card .list_work {margin: 40px auto 0}
   
   .list_work li a {width: 85%;}
+  .list_work li:nth-child(even) {justify-content: center;}
   .list_work li .box_btm strong {font-size: 20px;}
   .list_work li .box_btm .txt_year  {font-size: 16px;}
   .box_btm .sub  {font-size: 16px;}
@@ -300,16 +300,14 @@
   .list_work li:nth-child(6) a {margin-right:5%;}
 
 
-
-  .box_scale {min-height: 70vh;}
-  .box_scale .hover_wrap {height:100%;margin: 0px 0 0;}
+  .box_scale .hover_wrap {height:100%;margin: 40px auto 0;}
 
   .circle-1 { left: -38%;}
   .circle-2 { right: -60%;}
   .circle-3 { left: -41%;}
   .circle-4 { bottom: -32%; right: -29%;    width: 400px;    height: 400px;}
 
-  .box.box_contact {overflow-x: hidden;}
+  .box.box_contact {overflow-x: hidden;min-height: 60vh;}
   .box_btm .sub {flex-direction: column;align-items: start;font-family: 'Montserrat';}
   .txt_skills span {font-size: 14px; line-height: 1.5;   word-break: auto-phrase;}
   .box_btm .sub .txt_team {margin: 20px 0 0;}
@@ -329,6 +327,12 @@
   .list_work li:nth-child(4) a {margin-right:0;}
   .list_work li:nth-child(5) a {margin-left:0;}
   .list_work li:nth-child(6) a {margin-right:0;}
+  
+  .circle-1 {width: 300px;height: 300px;left: -45%;}
+  .circle-2 {width: 300px;height: 300px;}
+  .circle-3 {width: 300px;height: 300px;bottom: -16%;left: -37%;}
+  .circle-4 {width: 300px;height: 300px;bottom: -14%;}
+  
 
 
   .edu_from {font-size: 16px;padding: 5px 0 20px;}
