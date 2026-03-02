@@ -211,7 +211,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     // section4 활성화 상태 저장 변수 (아이폰 최적화 & 실행 오류 수정) ---
-    // --- 섹션 4 패럴랙스 최종 수정 버전 ---
     let isSection4Active = false;
     const s4 = document.getElementById('section4');
     const parallaxCircles = [
@@ -246,7 +245,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // 루프 실행
     requestAnimationFrame(updateParallax);
 
-    // 섹션 감시 (이 부분은 그대로 두셔도 됩니다)
+    // 섹션 감시
     function section4Observer() {
         if (!s4) return;
         const observer = new IntersectionObserver((entries) => {
