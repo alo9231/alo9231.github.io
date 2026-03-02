@@ -35,39 +35,45 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     // 메인 키비쥬얼 홀로그램 버튼 클릭 시 섹션1로 이동
-    //  document.getElementById('btnMore').addEventListener('click', function(event) {
-    //     // 클릭 시 기본 동작(페이지 상단 이동 등)을 막음
-    //     event.preventDefault(); 
+     document.querySelector('.mousey').addEventListener('click', function(event) {
+        // 클릭 시 기본 동작(페이지 상단 이동 등)을 막음
+        event.preventDefault(); 
         
-    //     // 대상 요소 찾기
-    //     const targetSection = document.getElementById('section1');
+        // 대상 요소 찾기
+        const targetSection = document.getElementById('section1');
         
-    //     // 부드럽게 스크롤 이동
-    //     targetSection.scrollIntoView({
-    //         behavior: 'smooth',
-    //         block: 'start' // 섹션의 시작 위치에 맞춤
-    //     });
-    // });  
+        // 부드럽게 스크롤 이동
+        targetSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start' // 섹션의 시작 위치에 맞춤
+        });
+    });  
 
     // 메인 키비쥬얼 홀로그램 버튼 - 오늘날짜출력
-    function printToday(){
+    function printToday() {
         // 1. 오늘 날짜 객체 생성
         const now = new Date();
         const year = now.getFullYear();
-        const month = String(now.getMonth() + 1).padStart(2,'0'); // 0부터 시작하므로 +1
-        const day = String(now.getDate()).padStart(2,'0');
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
 
-        // 2. 날짜 포맷 (YYYY-MM-DD)
-        const today = `${year}년 ${month}월 ${day}일`;
+        // 2. 요일 배열 생성 (0: 일요일 ~ 6: 토요일)
+        const week = ['일', '월', '화', '수', '목', '금', '토'];
+        const dayOfWeek = week[now.getDay()];
 
-        // 3. span 태그에 삽입 [7]
-        document.getElementById('date').innerHTML = today;
+        // 3. 날짜 포맷 (YYYY년 MM월 DD일 (요일))
+        const today = `${year}년 ${month}월 ${day}일 (${dayOfWeek})`;
+
+        // 4. span 태그에 삽입
+        const dateElement = document.getElementById('date');
+        if (dateElement) {
+            dateElement.innerHTML = today;
+        }
     }
     printToday();
-  
 
     
-    //work 스크롤 이벤트 | 섹션 2 
+    //work 스크롤 페이드인 이벤트 | 섹션 2 
     function workObserverActive(){
         const li = document.querySelectorAll('.list_work li');
 
@@ -82,16 +88,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
         const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-            // 50% 지점에 들어오면 active 클래스 추가
-            entry.target.classList.add('active');
-            } else {
-            // 50% 지점을 다시 벗어나면 (위로 스크롤해서 올리거나너무 많이 내려갔을 때)
-            // active 클래스 제거
-            //entry.target.classList.remove('active');
-            }
-        });
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // 감지 지점 안으로 들어오면 클래스 추가
+                    entry.target.classList.add('active');
+                } else {
+                    // 감지 지점 밖으로 나가면 클래스 제거
+                    // entry.boundingClientRect.top이 0보다 크면 '화면 아래쪽'으로 나간 것입니다.
+                    if (entry.boundingClientRect.top > 0) {
+                        entry.target.classList.remove('active');
+                    }
+                }
+            });
         }, options);
 
         li.forEach(section => {
@@ -100,6 +108,39 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     workObserverActive();
+
+    // work 스크롤 프로그래스바 이벤트 | 섹션 2
+
+    function section2BgProgress() {
+        const section2 = document.getElementById('section2');
+        const bgFill = document.querySelector('.bg-fill');
+        
+        // 아이템 체크 로직이 필요 없으므로 items 변수 삭제
+        if (!section2 || !bgFill) return;
+
+        const rect = section2.getBoundingClientRect();
+        const sectionHeight = section2.offsetHeight;
+        const viewportHeight = window.innerHeight;
+
+        let progress = 0;
+
+        // 1. 배경 진행률 계산 (0 ~ 100)
+        // 섹션이 화면 상단에 닿았을 때(rect.top <= 0)부터 계산 시작
+        if (rect.top <= 0) {
+            const scrolled = Math.abs(rect.top);
+            // 전체 스크롤 가능한 범위 (섹션 높이 - 뷰포트 높이)
+            const scrollable = sectionHeight - viewportHeight;
+            
+            progress = (scrolled / scrollable) * 100;
+        }
+
+        // 0% ~ 100% 범위 제한
+        if (progress < 0) progress = 0;
+        if (progress > 100) progress = 100;
+
+        // 배경 프로그래스바 너비 업데이트
+        bgFill.style.width = progress + "%";
+    }
 
     // 스크롤했을때 커지는 호버 영역 | 섹션 3
     function scrollScaleEvent(){
@@ -296,7 +337,8 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     window.onscroll = function() {
-        scrollHeaderEvent();     
+        scrollHeaderEvent();    
+        section2BgProgress();
         scrollScaleEvent();  
         scrollParallaxCircle();
         goTopEvent ();

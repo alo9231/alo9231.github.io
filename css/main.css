@@ -8,20 +8,30 @@
   --noise: rgba(255, 255, 255, 0.05);
 }
 
-.box {min-height: 100vh;display: grid;place-items: center;}
-.box_kv { overflow-x: hidden;}
+.box {min-height: 80vh;display: flex;align-items: center;justify-content: center;}
+.box_kv {position: relative;overflow-x: hidden;height: 85vh;}
+.box_kv .scroll-downs {position: absolute;bottom: 30px;right: 0;left: 0;width :34px;height: 55px;margin: 0 auto;}
+.mousey {display: block;width: 3px;padding: 3px 12px;height: 35px;border: 2px solid #333;border-radius: 25px;opacity: 0.75;box-sizing: content-box;}
+.scroller {display: block;width: 3px;height: 10px;border-radius: 25%;background-color: #333;animation-name: scroll;animation-duration: 2.2s;animation-timing-function: cubic-bezier(.15,.41,.69,.94);animation-iteration-count: infinite;}
+
 .box_kv::after {content: "";position: fixed;inset: 0;background: repeating-radial-gradient(circle, var(--noise) 0 1px, transparent 1px 2px );mix-blend-mode: overlay;pointer-events: none;opacity: 0.35;animation: grain 0.25s steps(2) infinite;}
 .box_kv .glitch {position: relative;font-size: 100px;font-weight: 900;letter-spacing: 0.08em;margin-bottom: 100px;text-align: center;}
 .box_kv .glitch::before,.glitch::after {content: attr(data-text);position: absolute;inset: 0;opacity: 0.8;}
 .box_kv .glitch::before {color: var(--c1);transform: translate(3px, -2px);mix-blend-mode: screen;animation: glitch 2s infinite alternate;}
 .box_kv .glitch::after {color: var(--c2);transform: translate(-3px, 2px);mix-blend-mode: screen;animation: glitch 1.5s infinite alternate-reverse;}
-.box_kv .wrap_card {width: 100%;text-align: center;display: flex;justify-content: center;padding-bottom: 150px;}
+.box_kv .wrap_card {width: 100%;text-align: center;display: flex;justify-content: center;}
 .box_kv .wrap_card .card {width: min(420px, 90vw);padding: 2.5rem;border-radius: 28px;background: linear-gradient(120deg,rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));backdrop-filter: blur(16px);box-shadow: 0 0 50px rgba(56, 189, 248, 0.35), inset 0 0 35px rgba(255, 255, 255, 0.15);transform-style: preserve-3d;animation: float 6s ease-in-out infinite;position: relative;}
 .wrap_card .card::before {content: "";position: absolute;inset: -2px;background: linear-gradient(120deg, transparent 20%, var(--c1), var(--c2), var(--c3), transparent 80%);filter: blur(25px);opacity: 0.4;z-index: -1;animation: holo 4s linear infinite;background-size: 400% 100%;}
 .wrap_card .card h2 {font-size: 1.7rem;margin-bottom: 1rem;}
 .wrap_card .card p {line-height: 1.6;opacity: 0.85;}
 .wrap_card .card .btn_more {display: inline-block;margin-top: 2rem;padding: 0.9rem 1.8rem;border-radius: 999px;font-weight: 600;letter-spacing: 0.08em;color: #fff;text-decoration: none;background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3));background-size: 300% 100%;animation: holo 3s linear infinite;box-shadow: 0 0 25px rgba(168, 85, 247, 0.6);}
 
+
+@keyframes scroll {
+  0% { opacity: 0; }
+  10% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(15px); opacity: 0;}
+}
 
 @keyframes grain {
   to {
@@ -103,9 +113,15 @@
 
 
 /****************** 섹션 2 **********************/
-.box_card .list_work {width: 100%;max-width: 1440px;margin: 80px auto 0;display: flex;flex-direction: column;}
+.box_card {position: relative;overflow: hidden;padding-bottom: 150px;}
+.box_card .bg-fill {position: absolute;top: 0;left: 0;width: 0%;height: 100%;background-color: hsl(
+188.83deg 31.35% 58.71% / 13%); /* 채워질 색상 */z-index: -1;transition: width 0.1s ease-out;opacity: 0.3;}
+.box_card .box_in {position: relative;z-index:2;}
+.box_card .list_work {position: relative;z-index: 10;width: 100%;max-width: 1440px;margin: 80px auto 0;display: flex;flex-direction: column;}
 .list_work li{display: flex;vertical-align: top;width: 100%;padding-bottom: 50px;  opacity: 0;transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* 부드러운 전환 */will-change: opacity, transform; /* 성능 최적화 */}
 .list_work li.active { opacity: 1;  transform: translateY(0);}
+.list_work li.active .box_top{    box-shadow: 3px 3px 10px 0px rgb(47 46 44 / 7%);}
+.list_work li.active a:after {background-color: hsl(230.37deg 24.15% 51.21% / 24%);box-shadow: 3px 3px 10px 0px rgb(47 46 44 / 7%);}
 .list_work li:nth-child(even) {justify-content: end;}
 .list_work li:nth-child(1) a {margin-left:50px;}
 .list_work li:nth-child(2) a {margin-right:0px;}
@@ -114,8 +130,9 @@
 .list_work li:nth-child(5) a {margin-left:0px;}
 .list_work li:nth-child(6) a {margin-right:150px;}
 .list_work li a {position:relative;width: 40%;display:block;}
-.list_work li a:after {content: '';-webkit-backdrop-filter: blur(1.2px);backdrop-filter: blur(1.2px);background-color: hsla(0, 0%, 92%, .502);border-radius: 2rem;width: 100%;height: 90%;left: 30px;pointer-events: none;position: absolute;top: 20%;transition: background-color .3s;z-index: -1;}
+.list_work li a:after {content: '';-webkit-backdrop-filter: blur(1.2px);backdrop-filter: blur(1.2px);background-color: hsla(0, 0%, 92%, .502);border-radius: 2rem;width: 100%;height: 90%;left: 30px;pointer-events: none;position: absolute;top: 20%;transition: background-color .3s;z-index: -1;overflow: hidden;}
 .list_work li .box_top {border: 1px solid var(--color-gray-title);border-radius: 2rem;overflow: hidden;}
+
 .list_work li .box_top img {width: 100%;}
 .list_work li .box_btm strong {font-size: 32px;font-weight: bold;}
 .list_work li .box_btm .txt_year {font-size: 18px;}
@@ -129,9 +146,9 @@
 
 
 /****************** 섹션 3 **********************/
-.box_scale {width:80%;margin: 100px auto 0;transition: all 0.5s ease-out;opacity: 0.5;/* min-height: auto; */}
+.box_scale {width:80%;transition: all 0.5s ease-out;opacity: 0.5;/* min-height: auto; */}
 .box_scale.grow {/* 1배 크기 */ opacity: 1;width: 100%;}
-.box_scale .hover_wrap {font-family: "Poppins", sans-serif;background-color: #0d0d0d;margin: 150px 0 0;width: 100%;}
+.box_scale .hover_wrap {font-family: "Poppins", sans-serif;background-color: #0d0d0d;margin: 150px 0 0;width: 100%;height: 100%;}
 .box_scale .hover_wrap span {position: absolute;width: 100%;height: 100%;left: 0;background-color: #4246ce;color: #0d0d0d;clip-path: polygon(0 50%, 100% 50%, 100% 50%, 0 50%);transform-origin: center;transition: all cubic-bezier(0.1, 0.5, 0.5, 1) 0.4s;display: flex;align-items: center;}
 .box_scale .hover_wrap  a {text-decoration: none; color: inherit;}
 .box_scale .hover_wrap .text:hover > span {clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);}
@@ -180,19 +197,7 @@
 .box.active .letter:nth-child(7) { animation-delay: 0.7s; }
 
 
-.circle {
-    position: absolute;
-    border-radius: 50%;
-    will-change: transform;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-
-    /* 아주 천천히 목적지까지 이동 (부드러움의 핵심) */
-    /* transition: transform 1.8s cubic-bezier(0.1, 0.4, 0.2, 1);  */
-    transition: transform 1.8s cubic-bezier(0.19, 1, 0.22, 1);
-    z-index: -1;
-}
-
+.circle {position: absolute;border-radius: 50%;will-change: transform;backface-visibility: hidden;-webkit-backface-visibility: hidden; /* 아주 천천히 목적지까지 이동 (부드러움의 핵심) */ transition: transform 1.8s cubic-bezier(0.19, 1, 0.22, 1);z-index: -1;}
 .circle-1 {top: -26%;left: 14%;width: 400px;height: 400px;background-color: rgb(255 100 100 / 42%);transition-delay: 0s;}/* (빠름) */
 .circle-2 {top: 4%;right: -10%;width: 500px;height: 500px;background-color: rgb(55 209 196 / 28%);transition-delay: 0.1s;}
 .circle-3 {bottom: -10%;left: -4%;width: 400px;height: 400px;background-color: #ff90286b;transition-delay: 0.2s;}
@@ -222,8 +227,10 @@
 
 
 @media screen and (max-width: 1600px){
-	
+
   .box_in {width:100%;padding:0 10px;}
+  .box_kv .glitch {font-size: 90px;}
+
   .box_sticky .about_tbox  .box_in {padding:0}
   .list_work li:nth-child(1) a {margin-left:10%;}
   .list_work li:nth-child(2) a {margin-right:5%;}
@@ -232,7 +239,7 @@
   .list_work li:nth-child(5) a {margin-left:0px;}
   .list_work li:nth-child(6) a {margin-right:8%;}
 
-  .box_kv .glitch {font-size: 90px;}
+  .stroke-wrap {padding-top:100px;}
 
   .box.box_contact .box_looptxt {font-size: 120px;;}
 
@@ -241,20 +248,22 @@
 
 @media screen and (max-width: 1024px){
 
-  .box_kv .glitch {font-size: 50px;line-height: 1.5;}
-  .stroke-wrap {font-size: 40px; padding-top: 80px;}
+  .box_kv .glitch {font-size: 50px;line-height: 1.5;margin-bottom: 60px;}
+  .stroke-wrap {font-size: 40px;padding-top: 0;}
   .box_sticky .about_tbox .sign {font-size: 30px;}
   .box_sticky .about_tbox p {font-size: 18px;padding-top: 20px;}
   .box_sticky .about_career .row strong { font-size: 30px;}
   .box_sticky .about_tbox {font-size: 18px;}
   .box_sticky .about_tbox .about_career .row{padding-top: 30px;}
 
+	.box_card {padding-bottom:80px;}
 
   .list_work li {   padding-bottom: 100px;}
   .list_work li a {width:60%; }
   .list_work li .box_btm strong {font-size:22px;}
 
-  .box_scale {margin: 0px auto 0;}
+  .box_scale {margin: 0px auto 0;min-height: 80vh;}
+	.box_scale .hover_wrap {margin:0}
 
   .box.box_contact .box_looptxt {font-size: 60px;}
   .box_contact .pop-up-text { font-size: 30px;}
@@ -265,7 +274,7 @@
 
 @media screen and (max-width: 767px){
 
-  .box_kv .wrap_card {padding-bottom:80px;}
+
   .box.box_contact .box_looptxt {font-size: 40px;}
   .box_sticky .box_aside {width:20%;}
   .box_sticky .main {width:80%;padding:10px;}
@@ -275,7 +284,9 @@
   .box_sticky .about_career .row strong {font-size: 22px;}
   .box_sticky .about_career .list_exp em {min-width: 100%;}
 
+  .box_card {padding-bottom: 50px;}
   .box_card .list_work {margin: 40px auto 0}
+  
   .list_work li a {width: 85%;}
   .list_work li .box_btm strong {font-size: 20px;}
   .list_work li .box_btm .txt_year  {font-size: 16px;}
@@ -287,6 +298,8 @@
   .list_work li:nth-child(4) a {margin-right:5%;}
   .list_work li:nth-child(5) a {margin-left:5%;}
   .list_work li:nth-child(6) a {margin-right:5%;}
+
+
 
   .box_scale {min-height: 70vh;}
   .box_scale .hover_wrap {height:100%;margin: 0px 0 0;}
@@ -300,8 +313,7 @@
   .box_btm .sub {flex-direction: column;align-items: start;font-family: 'Montserrat';}
   .txt_skills span {font-size: 14px; line-height: 1.5;   word-break: auto-phrase;}
   .box_btm .sub .txt_team {margin: 20px 0 0;}
-
-
+  
   
 
 }
@@ -310,6 +322,14 @@
   .wrap_cont {padding-top:100px;}
   .box_contact .pop-up-text {font-size: 24px; }
   .list_work li .box_btm strong { font-size: 18px; }
+  
+  .list_work li:nth-child(1) a {margin-left:0;}
+  .list_work li:nth-child(2) a {margin-right:0;}
+  .list_work li:nth-child(3) a {margin-left:0;}
+  .list_work li:nth-child(4) a {margin-right:0;}
+  .list_work li:nth-child(5) a {margin-left:0;}
+  .list_work li:nth-child(6) a {margin-right:0;}
+
 
   .edu_from {font-size: 16px;padding: 5px 0 20px;}
   .edu_year {font-weight: 500;color: #818181; font-size: 16px;}
