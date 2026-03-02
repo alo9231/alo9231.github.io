@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
         event.preventDefault(); 
         
         // 대상 요소 찾기
-        const targetSection = document.getElementById('section1');
+        const targetSection = document.getElementById('section4');
         
         // 부드럽게 스크롤 이동
         targetSection.scrollIntoView({
