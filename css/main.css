@@ -168,19 +168,15 @@
 .box.box_contact .box_in {position: relative;height: inherit;text-align: center;display: flex;flex-direction: column;align-items: center;z-index: 5;}
 
 .box_contact .discover {position: relative;display: inline-block;cursor: pointer;border: 0;background: transparent;vertical-align: middle;text-decoration: none;padding: 0;font-size: inherit;font-family: inherit;width: 12rem;height: auto;margin-top: 50px;}
-.box_contact .discover .cir {  transition: none !important;  /* 브라우저에게 변경을 예고 (최적화) */ will-change: transform; /* 렌더링 레이어 분리 */  backface-visibility: hidden;  -webkit-backface-visibility: hidden;
- transform: translateZ(0); /* GPU 가속 트리거 */ perspective: 1000px;  backface-visibility: hidden; /* 원들이 서로 독립적으로 렌더링되게 함 */   isolation: isolate;position: relative; display: block; margin: 0; width: 3rem; height: 3rem; background: #0c2461; border-radius: 1.625rem;}
+.box_contact .discover .cir {  position: relative; display: block; margin: 0; width: 3rem; height: 3rem; background: #0c2461; border-radius: 1.625rem;transition: width 0.3s ease-in-out}
 .box_contact .discover .cir .icon {  transition: all 450ms cubic-bezier(0.6, 0, 0.075, 1); position: absolute; top: 0; bottom: 0; margin: auto; background: #fad390;}
 .box_contact .discover .cir .icon.arrow { transition: all 450ms cubic-bezier(0.6, 0, 0.075, 1);  left: 0.625rem;  width: 1.125rem;  height: 0.125rem;  background: none;}
 .box_contact .discover .cir .icon.arrow::before {position: absolute;  content: "";  top: -0.25rem;  right: 0.0625rem;  width: 0.625rem;  height: 0.625rem;  border-top: 0.125rem solid #fad390;  border-right: 0.125rem solid #fad390;  transform: rotate(45deg);}
 .box_contact .discover .button-text {  transition: all 450ms cubic-bezier(0.6, 0, 0.075, 1);  position: absolute;  top: 0;  left: 0;  bottom: 0;  right: 0;  padding: 0.75rem 0;  margin: 0 0 0 1.85rem;  color: #0c2461;  font-weight: 700;  line-height: 1.618;  text-align: center;  letter-spacing: 0.05rem;  text-transform: uppercase;}
-.box_contact .discover:hover .circle {width: 100%;}
+.box_contact .discover:hover .cir {width: 100%;}
 .box_contact .discover:hover .icon.arrow {  background: #fad390; transform: translate(1rem, 0);}
 .box_contact .discover:hover .button-text {color: #fad390;}
-.circle-1 { z-index: 2; }
-.circle-2 { z-index: 3; }
-.circle-3 { z-index: 4; }
-.circle-4 { z-index: 5; }
+
 
 .box_contact .pop-up-text {font-size: 40px;font-weight: bold;display: flex; /* 글자들을 가로로 배치 */font-family: 'Poppins';padding-top: 50px;}
 .box.active .pop-up-text span {  opacity: 1;animation: bounce 0.5s ease;  animation-delay: calc(0.05s * var(--i));} 
@@ -202,7 +198,11 @@
 
 
 .circle {position: absolute;border-radius: 50%;will-change: transform;backface-visibility: hidden;-webkit-backface-visibility: hidden; /* 아주 천천히 목적지까지 이동 (부드러움의 핵심) */z-index: -1;opacity: 0.7;/* [추가] 아이폰 레이어 분리 (버벅임 방지) */
-will-change: transform; -webkit-transform: translateZ(0); transform: translateZ(0);transition: transform 1.8s cubic-bezier(0.19, 1, 0.22, 1);} 
+transition: transform 0.5s cubic-bezier(0.1, 0.5, 0.2, 1) !important;
+-webkit-transform: translate3d(0,0,0);
+transform: translate3d(0,0,0);
+
+} 
 .circle-1 {top: -26%;left: 14%;width: 400px;height: 400px;background-color: rgb(255 100 100 / 42%);transition-delay: 0s;}/* (빠름) */
 .circle-2 {top: 4%;right: -10%;width: 500px;height: 500px;background-color: rgb(55 209 196 / 28%);transition-delay: 0.1s;}
 .circle-3 {bottom: -10%;left: -4%;width: 400px;height: 400px;background-color: #ff90286b;transition-delay: 0.2s;}
