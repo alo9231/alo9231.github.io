@@ -201,11 +201,14 @@
 .box.active .letter:nth-child(7) { animation-delay: 0.7s; }
 
 
-.circle {position: absolute;border-radius: 50%;will-change: transform;backface-visibility: hidden;-webkit-backface-visibility: hidden; /* 아주 천천히 목적지까지 이동 (부드러움의 핵심) */transition: transform 1.8s cubic-bezier(0.19, 1, 0.22, 1);z-index: -1;opacity: 0.7;}
-.circle-1 {top: -26%;left: 14%;width: 400px;height: 400px;background-color: rgb(255 100 100 / 42%);transition-delay: 0s;}/* (빠름) */
-.circle-2 {top: 4%;right: -10%;width: 500px;height: 500px;background-color: rgb(55 209 196 / 28%);transition-delay: 0.1s;}
-.circle-3 {bottom: -10%;left: -4%;width: 400px;height: 400px;background-color: #ff90286b;transition-delay: 0.2s;}
-.circle-4 {bottom: -35%;right: 20%;width: 500px;height: 500px;background-color: rgb(100 53 209 / 39%);transition-delay: 0.2s;} /* (느림) */
+.circle {position: absolute;border-radius: 50%;will-change: transform;backface-visibility: hidden;-webkit-backface-visibility: hidden; /* 아주 천천히 목적지까지 이동 (부드러움의 핵심) */z-index: -1;opacity: 0.7;/* [추가] 아이폰 레이어 분리 (버벅임 방지) */
+    will-change: transform;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);} 
+.circle-1 {top: -26%;left: 14%;width: 400px;height: 400px;background-color: rgb(255 100 100 / 42%);transition-delay: 0s;transition: transform 1.8s cubic-bezier(0.19, 1, 0.22, 1);}/* (빠름) */
+.circle-2 {top: 4%;right: -10%;width: 500px;height: 500px;background-color: rgb(55 209 196 / 28%);transition-delay: 0.1s;transition: transform 1.8s cubic-bezier(0.19, 1, 0.22, 1);}
+.circle-3 {bottom: -10%;left: -4%;width: 400px;height: 400px;background-color: #ff90286b;transition-delay: 0.2s;transition: transform 1.8s cubic-bezier(0.19, 1, 0.22, 1);}
+.circle-4 {bottom: -35%;right: 20%;width: 500px;height: 500px;background-color: rgb(100 53 209 / 39%);transition-delay: 0.2s;transition: transform 1.8s cubic-bezier(0.19, 1, 0.22, 1);} /* (느림) */
  
 
 

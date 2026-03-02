@@ -211,8 +211,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     // section4 활성화 상태 저장 변수 (아이폰 최적화 & 실행 오류 수정) ---
-    // --- 섹션 4 패럴랙스 (동시 반응 버전) ---
-    let isSection4Active = false; 
+    // --- 섹션 4 패럴랙스 최종 수정 버전 ---
+    let isSection4Active = false;
     const s4 = document.getElementById('section4');
     const parallaxCircles = [
         document.querySelector('.circle-1'),
@@ -220,32 +220,33 @@ document.addEventListener("DOMContentLoaded", function() {
         document.querySelector('.circle-3'),
         document.querySelector('.circle-4')
     ];
-    const s4_speeds = [0.25, -0.18, 0.1, -0.08];
+    // 2, 3, 4번의 속도를 조금 더 키워서(0.1 -> 0.15) 아이폰에서도 반응이 보이게 조절함
+    const s4_speeds = [0.25, -0.2, 0.15, -0.12]; 
 
     function updateParallax() {
-        // 'ease'를 거치지 않고 실제 스크롤 위치를 즉시 가져옵니다.
-        const immediateScrollY = window.pageYOffset;
-
         if (isSection4Active && s4) {
+            // 현재 화면(뷰포트) 기준 섹션의 위치를 가져옴 (리사이즈에 강함)
+            const rect = s4.getBoundingClientRect();
+            
+            // 섹션이 화면 상단에 닿았을 때를 0으로 기준 잡음
+            const relativeScroll = rect.top;
+
             parallaxCircles.forEach((circle, i) => {
                 if (circle) {
-                    // 관성 없이 즉각적인 스크롤 위치를 사용하되, 속도 격차만 적용
-                    const relativeScroll = immediateScrollY - s4.offsetTop;
+                    // translate3d로 GPU 가속을 사용해 아이폰 버벅임 방지
                     const yPos = relativeScroll * s4_speeds[i];
-                    
-                    // translate3d로 하드웨어 가속은 유지 (아이폰 버벅임 방지)
-                    circle.style.transform = `translate3d(0, ${yPos.toFixed(2)}px, 0)`;
+                    circle.style.transform = `translate3d(0, ${yPos.toFixed(1)}px, 0)`;
                 }
             });
         }
-        // 아이폰 Safari의 스크롤 동기화를 위해 rAF는 유지합니다.
+        // 스크롤 이벤트와 별개로 브라우저 주사율에 맞춰 부드럽게 실행
         requestAnimationFrame(updateParallax);
     }
 
-    // 루프 시작
+    // 루프 실행
     requestAnimationFrame(updateParallax);
 
-    // 섹션 감시 옵저버 (기존과 동일)
+    // 섹션 감시 (이 부분은 그대로 두셔도 됩니다)
     function section4Observer() {
         if (!s4) return;
         const observer = new IntersectionObserver((entries) => {
@@ -256,6 +257,7 @@ document.addEventListener("DOMContentLoaded", function() {
         observer.observe(s4);
     }
     section4Observer();
+
 
     //스크롤 시 애니메이션 활성화
     function sectionObserverActive() {
