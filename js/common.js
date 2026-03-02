@@ -1,5 +1,7 @@
 
 document.addEventListener("DOMContentLoaded", function() { 
+
+    let ticking = false; //과부하 방지 최적화용
     
     //헤더 스크롤 했을때 작아지고 커지는 이벤트
     function scrollHeaderEvent() {
@@ -214,6 +216,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (!isSection4Active) return;
 
         const section4 = document.getElementById('section4');
+        // 매번 querySelector를 하면 느리므로 실제로는 함수 밖에서 미리 선언(캐싱)하는 것이 좋습니다.
         const circles = [
             document.querySelector('.circle-1'),
             document.querySelector('.circle-2'),
@@ -227,16 +230,13 @@ document.addEventListener("DOMContentLoaded", function() {
         const sectionTop = section4.offsetTop;
         const viewportHeight = window.innerHeight;
 
-        // 섹션 중앙 기준점 계산
         const relativeScroll = scrollTop - sectionTop + (viewportHeight / 2);
-
-        // [속도 차별화] 숫자가 클수록 "내 눈앞"에 있는 것처럼 크게 움직입니다.
         const speeds = [0.25, -0.18, 0.1, -0.08]; 
 
         circles.forEach((circle, index) => {
             let pos = relativeScroll * speeds[index];
-            // Y축 이동과 함께 아주 미세한 회전(rotation)을 넣어 입체감을 더함
-            circle.style.transform = `translate3d(0, ${pos}px, 0) rotate(${pos * 0.05}deg)`;
+            // 중요: translate3d를 사용하여 GPU 가속을 사용하게 하고, 소수점 자릿수를 제한합니다.
+            circle.style.transform = `translate3d(0, ${pos.toFixed(2)}px, 0) rotate(${(pos * 0.05).toFixed(2)}deg)`;
         });
     }
 
@@ -336,13 +336,24 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    window.onscroll = function() {
-        scrollHeaderEvent();    
-        section2BgProgress();
-        scrollScaleEvent();  
-        scrollParallaxCircle();
-        goTopEvent ();
-    };
+
+    // 최적화된 스크롤 핸들러
+    function handleScroll() {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                scrollHeaderEvent();    
+                section2BgProgress();
+                scrollScaleEvent();  
+                scrollParallaxCircle(); // 이 내부의 DOM 선택자들을 밖으로 빼면 더 좋습니다.
+                goTopEvent();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }
+
+    // 기존 window.onscroll 대신 이벤트 리스너 사용 (성능에 더 좋음)
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     
 });
