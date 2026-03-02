@@ -17,10 +17,10 @@ html { scroll-behavior: smooth;}
 .area_rheader .menu--bottom--right.active:before {content: '';width: 100vh;height: 100vh;position: fixed;background: #000;top: 0;left: 0;opacity: 0.7;}
 .area_rheader .menuItem {display: flex;}
 .area_rheader .menuItem li a {display:block; font-size: 24px;color: #000;font-weight: bold;padding-right: 105px;opacity: 0.5;  transition: all 0.3s ease-in-out;}
-.area_rheader .menuItem li a.active {color: #0087ff;}
 .area_rheader .menuItem li:last-child a {padding-right: 0;}
-.area_rheader .menuItem li a:hover {color:#f6892e;}
-
+/* .area_rheader .menuItem li a:hover {color:#f6892e;} */
+.area_rheader .menuItem li a:focus {outline: none;}
+.area_rheader .menuItem li a.active {color: #0087ff !important;}
 
 .wrap_header.shrink {height: 60px; /* 줄어든 높이 */background: rgb(255 255 255 / 62%);backdrop-filter: blur(5px);-webkit-backdrop-filter: blur(5px);}
 .wrap_header.shrink .area_rheader .menuItem li a { font-size: 16px; /* 줄어든 폰트 크기 */}
