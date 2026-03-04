@@ -92,21 +92,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     initMainVisualAnimation();
 
-    // 3. 마우스(mousey) 버튼 클릭 시 이동
-    const mousey = document.querySelector('.mousey');
-    if (mousey) {
-        mousey.addEventListener('click', function(e) {
-            e.preventDefault();
-           const targetSection = document.querySelector('#section4'); // 가고 싶은 다음 섹션 ID
-  
-            if (targetSection) {
-                targetSection.scrollIntoView({
-                    behavior: 'smooth', // 부드러운 스크롤
-                    block: 'start'      // 섹션의 시작 부분에 맞춤
-                });
-            }
-        });
-    }
+   
 
     // 4. 섹션 애니메이션 & 메뉴 활성화 옵저버
     function sectionObserverActive() {
