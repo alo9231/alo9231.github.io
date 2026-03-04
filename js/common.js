@@ -97,12 +97,13 @@ document.addEventListener("DOMContentLoaded", function() {
     if (mousey) {
         mousey.addEventListener('click', function(e) {
             e.preventDefault();
-            const targetSection = document.getElementById('section4');
-            const header = document.getElementById("header");
+           const targetSection = document.querySelector('#section5'); // 가고 싶은 다음 섹션 ID
+  
             if (targetSection) {
-                const headerHeight = header.offsetHeight;
-                const targetPosition = targetSection.getBoundingClientRect().top + window.scrollY;
-                window.scrollTo({ top: targetPosition - headerHeight, behavior: 'smooth' });
+                targetSection.scrollIntoView({
+                    behavior: 'smooth', // 부드러운 스크롤
+                    block: 'start'      // 섹션의 시작 부분에 맞춤
+                });
             }
         });
     }
