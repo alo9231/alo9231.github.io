@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // 1. 헤더 스크롤 이벤트 (Shrink 효과)
+    // [공통 함수] 헤더 스크롤 이벤트 (Shrink 효과)
     function scrollHeaderEvent() {
         const header = document.getElementById("header");
         const content = document.getElementById("content");
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // 2. 네비게이션 클릭 시 정밀 이동 (헤더 높이 제외)
+    // [공통 함수] 네비게이션 클릭 시 정밀 이동 (헤더 높이 제외)
     document.querySelectorAll('.menuItem .link_menu').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
@@ -58,43 +58,60 @@ document.addEventListener("DOMContentLoaded", function() {
 
     
     /*** 메인 키비주얼(KV) 섹션의 스크롤 인터랙션을 초기화하는 함수 ***/
-    function initMainVisualAnimation() {
+   function initMainVisualAnimation() {
         gsap.registerPlugin(ScrollTrigger);
 
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: ".interaction-container",
-                start: "top top",
-                end: "bottom bottom",
-                scrub: 1.2,
-                pin: ".sticky-wrapper",
-                pinSpacing: true,
-                // 브라우저 크기 변경 시 애니메이션 값들을 다시 계산함 (반응형 필수)
-                invalidateOnRefresh: true,
-                anticipatePin: 1,
-                fastScrollEnd: true, // 빠른 스크롤 대응
-                preventOverlaps: true // 애니메이션 겹침 방지
-            }
-        });
+        let mm = gsap.matchMedia();
 
-        // 애니메이션 내부의 값들도 가급적 픽셀보다는 %나 vw를 사용하는게 좋습니다.
-        tl.to("#beltMove", { attr: { startOffset: "5%" }, ease: "none" }, 0)
-        .to("#textFor", { x: "-22vw", y: "0", ease: "power2.inOut" }, 0)
-        .to("#textBetter", { x: "22vw", y: "0", ease: "power2.inOut" }, 0)
-        .to("#zoomBox", {
-            width: "100vw",
-            height: "100dvh", // 전체화면 확장 시에도 dvh 사용
-            borderRadius: "0px",
-            ease: "power2.inOut"
-        }, 0.1)
-        .to("#textFor, #textBetter", { color: "#fff", duration: 0.3 }, 0.7);
+        // matchMedia를 사용하면 리사이즈 시 자동으로 구문을 새로고침합니다.
+        mm.add({
+            isMobile: "(max-width: 767px)",
+            isDesktop: "(min-width: 768px)"
+        }, (context) => {
+            let { isMobile } = context.conditions;
+
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: ".interaction-container",
+                    start: "top top",
+                    end: "bottom bottom",
+                    scrub: 1.2,
+                    pin: ".sticky-wrapper",
+                    pinSpacing: true,
+                    invalidateOnRefresh: true,
+                }
+            });
+
+            // 1. 초기 상태 설정 (리사이즈 시마다 실행됨)
+            gsap.set("#zoomBox", {
+                width: isMobile ? "300px" : "600px", // 시작 크기 설정
+                height: isMobile ? "300px" : "400px", // 필요 시 조정
+                borderRadius: "20px" // 초기 라운드값
+            });
+
+            // 2. 애니메이션 진행
+            tl.to("#beltMove", { attr: { startOffset: "5%" }, ease: "none" }, 0)
+            .to("#textFor", { x: "-22vw", y: "0", ease: "power2.inOut" }, 0)
+            .to("#textBetter", { x: "22vw", y: "0", ease: "power2.inOut" }, 0)
+            .to("#zoomBox", {
+                width: "100vw",
+                height: "100dvh",
+                borderRadius: "0px",
+                ease: "power2.inOut"
+            }, 0.1)
+            .to("#textFor, #textBetter", { color: "#fff", duration: 0.3 }, 0.7);
+            
+            return () => {
+                // 리사이즈 등으로 미디어쿼리가 바뀔 때 정리 작업 (GSAP가 자동으로 처리하지만 안전용)
+            };
+        });
     }
 
     initMainVisualAnimation();
 
    
 
-    // 4. 섹션 애니메이션 & 메뉴 활성화 옵저버
+    // [공통 섹션] - 섹션 애니메이션 & 메뉴 활성화 옵저버
     function sectionObserverActive() {
         const sections = document.querySelectorAll(".box");
 
@@ -130,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     sectionObserverActive();
 
-    // 5. 작업 리스트(Work) 페이드인 옵저버
+    // [공통 섹션] - 작업 리스트(Work) 페이드인 옵저버
     function workObserverActive() {
         const li = document.querySelectorAll('.list_work li');
         const observer = new IntersectionObserver((entries) => {
@@ -146,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     workObserverActive();
 
-    // 6. 프로그래스바 (scaleX 사용으로 리사이즈 떨림 방지)
+    // [섹션 2] - 프로그래스바 (scaleX 사용으로 리사이즈 떨림 방지)
     function section2BgProgress() {
         const section2 = document.getElementById('section2');
         const bgFill = document.querySelector('.bg-fill');
@@ -165,7 +182,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // 7. 박스 스케일 이벤트
+    // [섹션 3] - 박스 스케일 이벤트
     function scrollScaleEvent() {
         const box = document.querySelector('.box_scale');
         if (!box) return;
@@ -177,7 +194,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // 8. 패럴랙스 원형 애니메이션 (translate3d 사용으로 최적화)
+    // [섹션 4] -  패럴랙스 원형 애니메이션 (translate3d 사용으로 최적화) | contact
     let isSection4Active = false;
     const s4 = document.getElementById('section4');
     const circles = ['.circle-1', '.circle-2', '.circle-3', '.circle-4'].map(c => document.querySelector(c));
@@ -202,16 +219,8 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     if (s4) s4Observer.observe(s4);
 
-    // 9. 오늘 날짜 출력
-    (function printToday() {
-        const now = new Date();
-        const week = ['일', '월', '화', '수', '목', '금', '토'];
-        const today = `${now.getFullYear()}년 ${String(now.getMonth() + 1).padStart(2, '0')}월 ${String(now.getDate()).padStart(2, '0')}일 (${week[now.getDay()]})`;
-        const dateElement = document.getElementById('date');
-        if (dateElement) dateElement.innerHTML = today;
-    })();
-
-    // 10. 무한 롤링 텍스트
+    
+    // [섹션 4] - 무한 롤링 텍스트 | contact
     function createLoopingText(el) {
         const lerp = (c, t, f) => c * (1 - f) + t * f;
         const state = { el, lerp: { current: 0, target: 0 }, interpolationFactor: 0.1, speed: 0.2, direction: -1 };
@@ -227,6 +236,18 @@ document.addEventListener("DOMContentLoaded", function() {
         render();
     }
     document.querySelectorAll('.loop-container').forEach(el => createLoopingText(el));
+
+
+    // 오늘 날짜 출력
+    // (function printToday() {
+    //     const now = new Date();
+    //     const week = ['일', '월', '화', '수', '목', '금', '토'];
+    //     const today = `${now.getFullYear()}년 ${String(now.getMonth() + 1).padStart(2, '0')}월 ${String(now.getDate()).padStart(2, '0')}일 (${week[now.getDay()]})`;
+    //     const dateElement = document.getElementById('date');
+    //     if (dateElement) dateElement.innerHTML = today;
+    // })();
+
+   
 
     // 11. 스크롤 통합 핸들러
     const btnTop = document.querySelector(".btn_top");
