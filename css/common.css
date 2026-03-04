@@ -41,14 +41,15 @@ html { scroll-behavior: smooth;}
     bottom: 0;
     z-index: 1;        /* 컨텐츠보다 아래에 위치 */
     height: 300px;     /* 푸터의 높이 */
-    background-color: #f8f8f8;  
+    background-color: #d1d8f6;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
 }
 
-.wrap_footer .inner .f_txt { display:block; color: #a9a9a9;}
+.wrap_footer .inner .f_txt {display:block;color: #a9a9a9;color: #777777;text-align: center;}
+.wrap_footer .inner .f_txt img {display:block; margin:0 auto;}
 .wrap_footer .inner .f_txt + .f_txt {padding-top:10px;}
 
 .btn_top.active{ opacity: 1;visibility: visible;}
@@ -131,6 +132,7 @@ html { scroll-behavior: smooth;}
   .area_rheader .menu--bottom--right {justify-content: center;}
 
   .btn_top {bottom: 25px;width: 45px;height: 45px;}
+  .wrap_footer .inner .f_txt img {width: 50px;}
   
 
 }
