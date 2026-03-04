@@ -74,8 +74,8 @@
 
 
 /* 초기 위치: 대각선 바깥 */
-#textFor { position: absolute; transform: translate(-55vw, 45vh); color: #000; white-space: nowrap; }
-#textBetter { position: absolute; transform: translate(55vw, -45vh); color: #000; white-space: nowrap; }
+#textFor { position: absolute; transform: translate(-55vw, 45vh); color: #4a6ed9; white-space: nowrap; }
+#textBetter { position: absolute; transform: translate(55vw, -45vh); color: #4a6ed9; white-space: nowrap; }
 
 
 
