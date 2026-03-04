@@ -33,7 +33,7 @@
     /* overflow: hidden은 GSAP pin 계산을 방해할 수 있으므로 제거하거나 신중히 사용 */
 }
 .interaction-container {height: 400vh; position: relative; }
-.sticky-wrapper { position: sticky; top: 0; height: 100vh; height: 100dvh; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.sticky-wrapper { position: sticky; top: 0; height: 100vh; height: 100dvh !important; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 
 /* 주황색 띠 (최하단) */
 .path-belt { position: absolute; width: 130vw;
