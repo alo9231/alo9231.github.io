@@ -180,27 +180,6 @@ button {
 }
 
 @font-face {
-    font-family: 'GmarketSans';
-    font-style: normal;
-    font-weight: light;
-    src: url(font/GmarketSans-Light.woff2) format('woff2'), url(font/GmarketSans-Light.woff) format('woff'), url(font/GmarketSans-Light.otf) format('opentype');
-}
-
-@font-face {
-    font-family: 'GmarketSans';
-    font-style: normal;
-    font-weight: normal;
-    src: url(font/GmarketSans-Medium.woff2) format('woff2'), url(font/GmarketSans-Medium.woff) format('woff'), url(font/GmarketSans-Medium.otf) format('opentype');
-}
-
-@font-face {
-    font-family: 'GmarketSans';
-    font-style: normal;
-    font-weight: bold;
-    src: url(font/GmarketSans-Bold.woff2) format('woff2'), url(font/GmarketSans-Bold.woff) format('woff'), url(font/GmarketSans-Bold.otf) format('opentype');
-}
-
-@font-face {
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: light;
@@ -221,12 +200,7 @@ button {
     src: url(font/Montserrat-Bold.woff2) format('woff2'), url(font/Montserrat-Bold.woff) format('woff'), url(font/Montserrat-Bold.otf) format('opentype');
 }
 
-@font-face {
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: light;
-    src: url(font/Poppins-Light.woff2) format('woff2'), url(font/Poppins-Light.woff) format('woff'), url(font/Poppins-Light.otf) format('opentype');
-}
+
 
 @font-face {
     font-family: 'Poppins';
@@ -251,5 +225,5 @@ button {
 }
 
 body {
-    font-family: 'Pretendard', 'Poppins', 'Montserrat', 'GmarketSans', 'AlexBrush', sans-serif;
+    font-family: 'Pretendard', 'Poppins', 'Montserrat', 'AlexBrush', sans-serif;
 }
