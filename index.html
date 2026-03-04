@@ -21,8 +21,16 @@
 <link rel="stylesheet" href="css/reset.css">
 <link rel="stylesheet" href="css/common.css">
 <link rel="stylesheet" href="css/main.css">
+
+<script src="https://cdn.tailwindcss.com"></script>
 <script src="js/jquery-1.11.3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script src="js/common.js"></script>
+
+
+
+
 </head> 
 <body>
 <header class="wrap_header" id="header">
@@ -55,30 +63,40 @@
 </div>
 </header>
 <main class="wrap_cont" id="content">
-    <section class="box box_kv">
-        <div class="box_in">
-            <h3 class="glitch ani-fade_left" data-text="WELCOME ! I AM J">WELCOME ! I AM J</h3>
-            <div class="wrap_card ani-fade_up">
-                <div class="card">
-                    <strong>Web Publisher 이지선</strong>
-                    <p>
-                        안녕하세요 7년 차 웹 퍼블리셔 이지선입니다.<br>
-                        제 포트폴리오에 방문해주셔서 감사합니다.
-                    </p>
-                    <!-- <a href="javascript:;" class="btn_more" id="btnMore">MORE</a> -->
-                    <span class="blind">오늘 날짜</span>
-                    <span class="btn_more" id="date"></span>
+    <section class="box_kv relative overflow-hidden">
+        <div class="interaction-container">
+            <div class="sticky-wrapper">
+                
+              <svg class="path-belt" viewBox="0 0 1600 800">
+                    <path id="curvePath" d="M -200 650 Q 400 50 800 450 T 1800 250" fill="none" stroke="#FF5E10" stroke-width="110"></path>
+                    <text font-family="Montserrat" font-size="28" font-weight="900" fill="#000">
+                        <textPath href="#curvePath" id="beltMove" startOffset="70.4891%">
+                            안녕하세요 웹 퍼블리셔 이지선 입니다. 저의 포트폴리오 사이트에 방문해주셔서 감사합니다. 항상 겸손한 마음으로 발전하는 웹 퍼블리셔가 되겠습니다. 
+                        </textPath>
+                    </text>
+                </svg>
+
+                <div class="zoom-box" id="zoomBox">
+                    <img src="images/img_kv_back.jpg" alt="Work">
                 </div>
+
+                <div class="merge-text-layer">
+                    <span id="textFor">For the </span>
+                    <span id="textBetter">Better</span>
+                </div>
+                
+                <!-- contact(section4)로 바로 이동하는 마우스 아이콘 -->
+                <div class="scroll-downs">
+                    <a href="javascript:;" class="mousey">
+                        <span class="blind">about me 섹션으로 이동</span>
+                        <span class="scroller"></span>                
+                    </a>
+                </div>
+
             </div>
-        </div>
-        <div class="scroll-downs">
-            <a href="javascript:;" class="mousey">
-                <span class="blind">about me 섹션으로 이동</span>
-                <span class="scroller"></span>                
-            </a>
-        </div>
+        </div>        
     </section>
-     
+
     <section class="box box_contact" id="section4">
         <div class="box_in">
              <div class="letter-container">

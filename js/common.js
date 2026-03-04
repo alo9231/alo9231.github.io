@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", function() {
     let ticking = false; // 과부하 방지 최적화용
     let isScrolling = false; // 클릭 이동 중 옵저버 간섭 방지 플래그
 
+
+
     // [공통 함수] 메뉴 활성화 상태 업데이트
     function setActiveMenu(targetId) {
         const navLinks = document.querySelectorAll('.menuItem .link_menu');
@@ -53,6 +55,42 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     });
+
+    
+    /*** 메인 키비주얼(KV) 섹션의 스크롤 인터랙션을 초기화하는 함수 ***/
+    function initMainVisualAnimation() {
+        gsap.registerPlugin(ScrollTrigger);
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".interaction-container",
+                start: "top top",
+                end: "bottom bottom",
+                scrub: 1.2,
+                pin: ".sticky-wrapper",
+                pinSpacing: true,
+                // 브라우저 크기 변경 시 애니메이션 값들을 다시 계산함 (반응형 필수)
+                invalidateOnRefresh: true,
+                anticipatePin: 1,
+                fastScrollEnd: true, // 빠른 스크롤 대응
+                preventOverlaps: true // 애니메이션 겹침 방지
+            }
+        });
+
+        // 애니메이션 내부의 값들도 가급적 픽셀보다는 %나 vw를 사용하는게 좋습니다.
+        tl.to("#beltMove", { attr: { startOffset: "5%" }, ease: "none" }, 0)
+        .to("#textFor", { x: "-22vw", y: "0", ease: "power2.inOut" }, 0)
+        .to("#textBetter", { x: "22vw", y: "0", ease: "power2.inOut" }, 0)
+        .to("#zoomBox", {
+            width: "100vw",
+            height: "100dvh", // 전체화면 확장 시에도 dvh 사용
+            borderRadius: "0px",
+            ease: "power2.inOut"
+        }, 0.1)
+        .to("#textFor, #textBetter", { color: "#fff", duration: 0.3 }, 0.7);
+    }
+
+    initMainVisualAnimation();
 
     // 3. 마우스(mousey) 버튼 클릭 시 이동
     const mousey = document.querySelector('.mousey');

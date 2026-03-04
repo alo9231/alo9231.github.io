@@ -9,10 +9,10 @@
 }
 
 .box {display: flex;align-items: center;justify-content: center;flex-direction: column;}
-.box_kv {position: relative;overflow-x: hidden;height: 85vh;}
-.box_kv .scroll-downs {position: absolute;bottom: 30px;right: 0;left: 0;width :34px;height: 55px;margin: 0 auto;}
-.mousey {display: block;width: 3px;padding: 3px 12px;height: 35px;border: 2px solid #333;border-radius: 25px;opacity: 0.75;box-sizing: content-box;}
-.scroller {display: block;width: 3px;height: 10px;border-radius: 25%;background-color: #333;animation-name: scroll;animation-duration: 2.2s;animation-timing-function: cubic-bezier(.15,.41,.69,.94);animation-iteration-count: infinite;}
+.box_kv {position: relative;overflow-x: hidden;display:block;}
+.box_kv .scroll-downs {position: absolute;bottom: 30px;right: 0;left: 0;width :34px;height: 55px;margin: 0 auto;z-index: 10;}
+.mousey {display: block;width: 3px;padding: 3px 12px;height: 35px;border: 2px solid rgb(16 143 255);border-radius: 25px;opacity: 0.75;box-sizing: content-box;}
+.scroller {display: block;width: 3px;height: 10px;border-radius: 25%;background-color: rgb(16 143 255);animation-name: scroll;animation-duration: 2.2s;animation-timing-function: cubic-bezier(.15,.41,.69,.94);animation-iteration-count: infinite;}
 
 .box_kv::after {content: "";position: fixed;inset: 0;background: repeating-radial-gradient(circle, var(--noise) 0 1px, transparent 1px 2px );mix-blend-mode: overlay;pointer-events: none;opacity: 0.35;animation: grain 0.25s steps(2) infinite;}
 .box_kv .glitch {position: relative;font-size: 100px;font-weight: 900;letter-spacing: 0.08em;margin-bottom: 100px;text-align: center;}
@@ -25,6 +25,58 @@
 .wrap_card .card h2 {font-size: 1.7rem;margin-bottom: 1rem;}
 .wrap_card .card p {line-height: 1.6;opacity: 0.85;}
 .wrap_card .card .btn_more {display: inline-block;margin-top: 2rem;padding: 0.9rem 1.8rem;border-radius: 999px;font-weight: 600;letter-spacing: 0.08em;color: #fff;text-decoration: none;background: linear-gradient(90deg, var(--c1), var(--c2), var(--c3));background-size: 300% 100%;animation: holo 3s linear infinite;box-shadow: 0 0 25px rgba(168, 85, 247, 0.6);}
+
+.box_kv { 
+    width: 100%; 
+    position: relative; 
+    background: #fff; 
+    /* overflow: hidden은 GSAP pin 계산을 방해할 수 있으므로 제거하거나 신중히 사용 */
+}
+.interaction-container {height: 400vh; position: relative; }
+.sticky-wrapper { position: sticky; top: 0; height: 100vh; height: 100dvh; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+
+/* 주황색 띠 (최하단) */
+.path-belt { position: absolute; width: 130vw;
+    height: 120vh; /* 폭이 크므로 높이를 100vh보다 조금 더 여유있게 잡습니다 */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 중앙 정렬로 큰 굴곡이 화면 중앙에 배치되도록 함 */
+    z-index: 5;
+    opacity: 1; }
+
+/* 중앙 이미지 박스 (중간) */
+.zoom-box {
+    position: relative;
+    /*width: 60vw;   /* 고정 px 대신 화면 너비 비율로 */
+    width: 26vw;
+    min-width:300px; 
+    /* max-width: 500px; */
+    aspect-ratio: 16 / 10; /* 높이를 직접 지정하는 대신 비율로 유지 */
+    height: auto;
+    border-radius: 12px;
+    z-index: 10;
+    background: #000;
+    overflow: hidden;
+    border-radius: 8px;
+}
+.zoom-box img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+
+/* 합쳐지는 텍스트 레이어 (최상단) */
+.merge-text-layer {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Montserrat', sans-serif; font-size: 13vw; font-weight: 900;
+    z-index: 20; pointer-events: none;
+    gap: 3vw;
+    /* 자간을 살짝 조여서 세련되게 */
+    letter-spacing: -0.03em;
+}
+
+
+/* 초기 위치: 대각선 바깥 */
+#textFor { position: absolute; transform: translate(-55vw, 45vh); color: #000; white-space: nowrap; }
+#textBetter { position: absolute; transform: translate(55vw, -45vh); color: #000; white-space: nowrap; }
+
 
 
 @keyframes scroll {
@@ -277,6 +329,8 @@ transform: translate3d(0,0,0);
 
 
 @media screen and (max-width: 767px){
+
+  .zoom-box {width:300px; height:300px;}
 
 
   .box.box_contact .box_looptxt {font-size: 40px;padding-top: 40px;}
