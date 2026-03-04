@@ -330,7 +330,7 @@ transform: translate3d(0,0,0);
 
 @media screen and (max-width: 767px){
 
-  .zoom-box {width:300px; height:300px;}
+  .zoom-box {width:300px !important; height:300px !important;}
 
 
   .box.box_contact .box_looptxt {font-size: 40px;padding-top: 40px;}
@@ -366,7 +366,7 @@ transform: translate3d(0,0,0);
   .circle-3 { left: -41%;}
   .circle-4 { bottom: -32%; right: -29%;    width: 400px;    height: 400px;}
 
-  .box.box_contact {overflow-x: hidden;min-height: 60vh;}
+  .box.box_contact {overflow-x: hidden;min-height: 100vh;}
   .box_btm .sub {flex-direction: column;align-items: start;font-family: 'Montserrat';}
   .txt_skills span {font-size: 14px; line-height: 1.5;   word-break: auto-phrase;}
   .box_btm .sub .txt_team {margin: 20px 0 0;}
