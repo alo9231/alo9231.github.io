@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function() {
     if (mousey) {
         mousey.addEventListener('click', function(e) {
             e.preventDefault();
-           const targetSection = document.querySelector('#section5'); // 가고 싶은 다음 섹션 ID
+           const targetSection = document.querySelector('#section4'); // 가고 싶은 다음 섹션 ID
   
             if (targetSection) {
                 targetSection.scrollIntoView({

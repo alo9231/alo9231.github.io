@@ -366,7 +366,7 @@ transform: translate3d(0,0,0);
   .circle-3 { left: -41%;}
   .circle-4 { bottom: -32%; right: -29%;    width: 400px;    height: 400px;}
 
-  .box.box_contact {overflow-x: hidden;min-height: 100vh;}
+  .box.box_contact {overflow-x: hidden;min-height: calc(100vh - 60px);}
   .box_btm .sub {flex-direction: column;align-items: start;font-family: 'Montserrat';}
   .txt_skills span {font-size: 14px; line-height: 1.5;   word-break: auto-phrase;}
   .box_btm .sub .txt_team {margin: 20px 0 0;}
