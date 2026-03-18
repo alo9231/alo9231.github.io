@@ -49,7 +49,7 @@ html { scroll-behavior: smooth;}
 }
 
 .wrap_footer .inner .f_txt {display:block;color: #a9a9a9;color: #777777;text-align: center;}
-.wrap_footer .inner .f_txt img {display:block; margin:0 auto;}
+.wrap_footer .inner .f_txt img {display:block;margin:0 auto;width: 40px;}
 .wrap_footer .inner .f_txt + .f_txt {padding-top:10px;}
 
 .btn_top.active{ opacity: 1;visibility: visible;}
@@ -132,7 +132,7 @@ html { scroll-behavior: smooth;}
   .area_rheader .menu--bottom--right {justify-content: center;}
 
   .btn_top {bottom: 25px;width: 45px;height: 45px;}
-  .wrap_footer .inner .f_txt img {width: 50px;}
+
   
 
 }
