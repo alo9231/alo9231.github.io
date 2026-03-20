@@ -384,7 +384,7 @@ transform: translate3d(0,0,0);
   .wrap_cont {padding-top:100px;}
   .box_contact .pop-up-text {font-size: 24px; }
   .list_work li .box_btm strong { font-size: 18px; }
-  
+  .list_work li .list_in{width:90%;}
   .list_work li:nth-child(1) .list_in {margin-left:0;}
   .list_work li:nth-child(2) .list_in {margin-right:0;}
   .list_work li:nth-child(3) .list_in {margin-left:0;}
