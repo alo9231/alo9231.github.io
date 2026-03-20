@@ -320,7 +320,7 @@ transform: translate3d(0,0,0);
   .list_work li {   padding-bottom: 100px;}
   .list_work li a {width:60%; }
   .list_work li .box_btm strong {font-size:22px;}
-  .list_work li .list_in {width: 70%;}
+  .list_work li .list_in {width: 80%;}
   .box_btm .sub {flex-direction:column;align-items: start;}
   .box_btm .sub .txt_team {margin: 10px 0 0;}
 
@@ -352,6 +352,7 @@ transform: translate3d(0,0,0);
   
   .list_work li a {width: 85%;}
   .list_work li:nth-child(even) {justify-content: start;}
+  .list_work li .list_in { width: 90%; }
   .list_work li .box_btm strong {font-size: 20px;}
   .list_work li .box_btm .txt_year  {font-size: 16px;}
   .box_btm .sub  {font-size: 16px;}
@@ -384,7 +385,7 @@ transform: translate3d(0,0,0);
   .wrap_cont {padding-top:100px;}
   .box_contact .pop-up-text {font-size: 24px; }
   .list_work li .box_btm strong { font-size: 18px; }
-  .list_work li .list_in{width:90%;}
+
   .list_work li:nth-child(1) .list_in {margin-left:0;}
   .list_work li:nth-child(2) .list_in {margin-right:0;}
   .list_work li:nth-child(3) .list_in {margin-left:0;}
