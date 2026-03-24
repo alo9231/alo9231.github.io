@@ -190,10 +190,10 @@
 .list_work li .box_btm .txt_year {font-size: 18px;}
 .box_btm .row {display: flex;align-items: center;padding-top: 20px;}
 .box_btm .row .txt_year { margin-left: 15px;}
-.txt_skills span {font-size:18px; color:#808080}
+.txt_skills span {font-size:18px;color:#808080;line-height: 2;}
 .txt_skills span:not(:last-child):after{background-color: #ccc;content: "";display: inline-block;height: 12px;margin: 3px 5px 0px 10px;transform: skew(-15deg, -15deg);width: 1px;}
-.box_btm .sub {padding-top: 20px;display: flex;align-items: center;font-size: 18px;}
-.box_btm .sub .txt_team {margin-left: 15px;display: flex;align-items: center;}
+.box_btm .sub {padding-top: 20px;display: flex;align-items: start;font-size: 18px;flex-direction: column;}
+.box_btm .sub .txt_team {margin-top: 15px;display: flex;align-items: center;}
 .box_btm .sub .txt_team > span:not(.blind) {margin-right:5px;white-space: nowrap;}
 .box_btm .sub .txt_team .link {display: flex;align-items: center;padding: 4px  10px;border-radius: 10px;background-color: #fff;border:1px solid #bbb}
 .box_btm .sub .txt_team .link:hover {transition: all 0.5s ease-out;box-shadow: 3px 3px 10px 0px rgb(47 46 44 / 18%);}
@@ -354,7 +354,7 @@ transform: translate3d(0,0,0);
   .list_work li:nth-child(even) {justify-content: start;}
   .list_work li .list_in { width: 90%; }
   .list_work li .box_btm strong {font-size: 20px;}
-  .list_work li .box_btm .txt_year  {font-size: 16px;}
+  .list_work li .box_btm .txt_year  {font-size: 16px;position: absolute;bottom: 0;right: 0;}
   .box_btm .sub  {font-size: 16px;}
 
   .list_work li:nth-child(1) .list_in {margin-left:5%;}
