@@ -374,7 +374,7 @@ transform: translate3d(0,0,0);
 
   .box.box_contact {overflow-x: hidden;min-height: calc(100vh - 60px);}
   .box_btm .sub {flex-direction: column;align-items: start;font-family: 'Montserrat';}
-  .txt_skills span {font-size: 14px; line-height: 1.5;   word-break: auto-phrase;}
+  .txt_skills span {font-size: 14px;line-height: 1.5;word-break: auto-phrase;font-family: 'Pretendard';font-weight: 500;}
   .box_btm .sub .txt_team {margin: 20px 0 0;}
   
   
