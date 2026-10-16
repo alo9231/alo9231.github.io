@@ -208,7 +208,7 @@
 /* 1. span 기본 상태에 top, visibility, opacity 속성 완비 */
 .box_scale .hover_wrap span {
   position: absolute;
-  top: 0; /* 부모 상단에 밀착 */
+  top: 0;
   width: 100%;
   height: 100%;
   left: 0;
@@ -216,11 +216,20 @@
   color: #0d0d0d;
   clip-path: polygon(0 50%, 100% 50%, 100% 50%, 0 50%);
   transform-origin: center;
-  transition: all cubic-bezier(0.1, 0.5, 0.5, 1) 0.4s;
+  
+  /* 1. 'all' 대신 애니메이션될 속성만 각각 명시하고 지속시간을 부드럽게 조정 */
+  transition: clip-path 0.4s cubic-bezier(0.1, 0.5, 0.5, 1), 
+              opacity 0.4s cubic-bezier(0.1, 0.5, 0.5, 1), 
+              visibility 0.4s cubic-bezier(0.1, 0.5, 0.5, 1);
+              
   display: flex;
   align-items: center;
   opacity: 0;
-  visibility: hidden; /* 평소에 마우스 이벤트 및 시각적 노출 차단 */
+  visibility: hidden;
+  
+  /* 2. 브라우저 렌더링 최적화(번쩍임 방지) */
+  will-change: clip-path, opacity;
+  transform: translateZ(0);
 }
 
 .box_scale .hover_wrap a {text-decoration: none; color: inherit;}
