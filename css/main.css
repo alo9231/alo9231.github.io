@@ -33,7 +33,7 @@
     /* overflow: hidden은 GSAP pin 계산을 방해할 수 있으므로 제거하거나 신중히 사용 */
 }
 .interaction-container {height: 400vh; position: relative; }
-.sticky-wrapper { position: sticky; top: 0; height: 100vh; height: 100dvh !important; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.sticky-wrapper { position: sticky; top: 0; height: 100vh; height: 100dvh; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 
 /* 주황색 띠 (최하단) */
 .path-belt { position: absolute; width: 130vw;
@@ -139,8 +139,9 @@
 .box_sticky .about_tbox .about_career .row {padding-top: 80px;}
 .box_sticky .about_career .row strong {font-size: 36px;font-weight: bold;text-transform: uppercase;font-family: 'Montserrat';}
 .box_sticky .about_career ul {padding-top: 10px;}
+.box_sticky .about_career ul li .edu_year {color: #8cb8fa; font-weight: bold;}
 .box_sticky .about_career li:not(:first-child) { padding-top: 5px;}
-.box_sticky .about_career .list_exp em{font-weight:bold;color:#000;min-width: 150px;display: inline-block;}
+.box_sticky .about_career .list_exp em{font-weight:bold;color:#000;min-width: 215px;display: inline-block;}
 
 .box_sticky .box_parallax{
 	height: 100%;	width: auto;	background-color: hsla(200,40%,30%,.4); background-image:		
@@ -203,10 +204,61 @@
 .box_scale {width:80%;transition: all 0.5s ease-out;min-height: auto;}
 .box_scale.grow {/* 1배 크기 */ opacity: 1;width: 100%;}
 .box_scale .hover_wrap {font-family: "Poppins", sans-serif;background-color: #0d0d0d;margin: 80px 0 0;width: 100%;height: 100%;}
-.box_scale .hover_wrap span {position: absolute;width: 100%;height: 100%;left: 0;background-color: #4246ce;color: #0d0d0d;clip-path: polygon(0 50%, 100% 50%, 100% 50%, 0 50%);transform-origin: center;transition: all cubic-bezier(0.1, 0.5, 0.5, 1) 0.4s;display: flex;align-items: center;}
-.box_scale .hover_wrap  a {text-decoration: none; color: inherit;}
-.box_scale .hover_wrap .text:hover > span {clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);}
-.box_scale .hover_wrap .text {font-size: 10vw;letter-spacing: -0.01em;line-height: 100%;margin: 0;width: 100%;color: rgb(182, 182, 182, 0.2);background: linear-gradient(to right, #3b2525, #b6b6b6) no-repeat;-webkit-background-clip: text;background-clip: text;background-size: 0%;transition: background-size cubic-bezier(0.1, 0.5, 0.5, 1) 0.5s;border-bottom: 1px solid #2f2b28;display: flex;flex-direction: column;align-items: flex-start;justify-content: center;position: relative;animation-name: reveal;animation-timing-function: linear;animation-fill-mode: forwards;animation-timeline: view();animation-range: entry 100% cover 50%;flex: 1;}
+
+/* 1. span 기본 상태에 top, visibility, opacity 속성 완비 */
+.box_scale .hover_wrap span {
+  position: absolute;
+  top: 0; /* 부모 상단에 밀착 */
+  width: 100%;
+  height: 100%;
+  left: 0;
+  background-color: #4246ce;
+  color: #0d0d0d;
+  clip-path: polygon(0 50%, 100% 50%, 100% 50%, 0 50%);
+  transform-origin: center;
+  transition: all cubic-bezier(0.1, 0.5, 0.5, 1) 0.4s;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden; /* 평소에 마우스 이벤트 및 시각적 노출 차단 */
+}
+
+.box_scale .hover_wrap a {text-decoration: none; color: inherit;}
+
+/* 2. 호버 시 clip-path뿐만 아니라 opacity와 visibility도 함께 열어주기 */
+.box_scale .hover_wrap .text:hover > span {
+  clip-path: polygon(0 0%, 100% 0%, 100% 100%, 0% 100%);
+  opacity: 1;
+  visibility: visible;
+}
+
+.box_scale .hover_wrap .text {
+  position: relative;
+  font-size: 10vw;
+  letter-spacing: -0.01em;
+  line-height: 100%;
+  margin: 0;
+  width: 100%;
+  color: rgb(182, 182, 182, 0.2);
+  background: linear-gradient(to right, #3b2525, #b6b6b6) no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-size: 0%;
+  transition: background-size cubic-bezier(0.1, 0.5, 0.5, 1) 0.5s;
+  border-bottom: 1px solid #2f2b28;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  overflow: hidden; /* 글자가 영역 밖으로 새어나가는 것 방지 */
+  animation-name: reveal;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  animation-timeline: view();
+  animation-range: entry 100% cover 50%;
+  flex: 1;
+}
+
 .box_scale .hover_wrap .container { max-width: 100%; display: flex;flex-direction: column;justify-content: center;align-items: flex-start;font-family: 'Poppins', sans-serif;font-weight: 800;height: inherit;}
 
 @keyframes reveal {
@@ -252,7 +304,7 @@
 
 
 .circle {position: absolute;border-radius: 50%;will-change: transform;backface-visibility: hidden;-webkit-backface-visibility: hidden; /* 아주 천천히 목적지까지 이동 (부드러움의 핵심) */z-index: -1;opacity: 0.7;/* [추가] 아이폰 레이어 분리 (버벅임 방지) */
-transition: transform 0.5s cubic-bezier(0.1, 0.5, 0.2, 1) !important;
+transition: transform 0.5s cubic-bezier(0.1, 0.5, 0.2, 1);
 -webkit-transform: translate3d(0,0,0);
 transform: translate3d(0,0,0);
 
@@ -346,6 +398,7 @@ transform: translate3d(0,0,0);
   .box_sticky .about_tbox p {word-break: auto-phrase;font-size: 16px;}
   .box_sticky .about_career .row strong {font-size: 22px;}
   .box_sticky .about_career .list_exp em {min-width: 100%;}
+  .box_sticky .about_career ul li .edu_year {display:block;}
 
   .box_card {padding-bottom: 50px;}
   .box_card .list_work {margin: 40px auto 0}
@@ -376,8 +429,8 @@ transform: translate3d(0,0,0);
   .box_btm .sub {flex-direction: column;align-items: start;font-family: 'Montserrat';}
   .txt_skills span {font-size: 14px;line-height: 1.5;word-break: auto-phrase;font-family: 'Pretendard';font-weight: 500;}
   .box_btm .sub .txt_team {margin: 20px 0 0;}
-  
-  
+
+  .box_scale .hover_wrap span {display:none;}
 
 }
 
@@ -397,6 +450,7 @@ transform: translate3d(0,0,0);
   .circle-2 {width: 300px;height: 300px;}
   .circle-3 {width: 300px;height: 300px;bottom: -16%;left: -37%;}
   .circle-4 {width: 300px;height: 300px;bottom: -14%;}
+
   
   .box {min-width:320px;}
   .box_kv .wrap_card .card {min-width: 300px;padding: 2.5rem 1.5rem;}
@@ -404,7 +458,7 @@ transform: translate3d(0,0,0);
   .box_kv .glitch {max-width: 330px;margin: 0 auto 50px;}
 
   .edu_from {font-size: 16px;padding: 5px 0 20px;}
-  .edu_year {font-weight: 500;color: #818181; font-size: 16px;}
+  .edu_year {font-weight: 500;font-size: 16px;}
   .box_sticky .about_career ul {font-size: 16px;} 
   .m_br {display:block;}
 }
